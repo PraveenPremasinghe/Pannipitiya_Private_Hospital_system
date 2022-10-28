@@ -1,0 +1,93 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap');
+
+
+
+.Introduction{
+    padding-top: 4%;
+    padding-bottom: 4%;
+}
+
+
+.intoduction-header{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+line-height: 38px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.02em;
+color: #000000;
+margin-bottom: 20px;
+}
+
+.intoduction-body{
+    font-family: 'Outfit';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 170%;
+align-items: center;
+letter-spacing: 0.02em;
+color: #4D4D4D;
+}
+.call-readmore{
+    padding: 40px 0px 40px 0px;
+}
+
+.IntroductionImage>img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
+.intoduction-2-header-center{
+    margin: auto;
+    width: 60%;
+}
+
+.intoduction-2-header{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+max-width: 600px;
+line-height: 48px;
+text-align: center;
+color: #000000;
+margin-bottom: 20px;
+}
+
+.intoduction-2-body{
+    font-family: 'Outfit';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 170%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.02em;
+    
+    color: #4D4D4D;
+
+}
+
+.LearnMore-center{
+    float: left;
+      position: relative;
+      left: 38%;
+    
+    padding: 40px 0px 40px 0px;
+}
+
+.hrline{
+    border: 0.5px solid rgba(0, 113, 255, 0.6);
+}

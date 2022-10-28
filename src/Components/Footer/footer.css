@@ -1,0 +1,108 @@
+.footer-bg{
+
+padding: 3% 5% 0% 5%;
+}
+
+
+.footer-title{
+    margin-bottom: 10px;
+    font-family: 'Poppins';
+font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 112.02%;
+display: flex;
+    align-items: center;
+    
+    color: #000000;
+}
+
+.footer-menu{
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+text-decoration: none !important;
+    line-height: 1.9;
+    color:#777777;
+    transition: all 0.3s ease;
+}
+
+.subscribe-input{
+    width: 100%;
+   padding: 10px 10px 10px 10px;
+   border: 1px solid rgba(0, 0, 0, 0.259);
+   /* border-radius: 5px; */
+}
+
+.footerul{
+    padding-left: 0rem !important;
+}
+.subscrib-btn{
+    margin-top: 5px;
+    width: 100%;
+    background: linear-gradient(91.79deg, #0071FF 4.41%, #0560FC 90.44%);
+    color: rgb(255, 255, 255);
+    padding:10px 0px 10px 0px;
+}
+
+.subscribe-input::placeholder{
+    color:rgba(0, 0, 0, 0.292);
+
+}
+
+.socialmedia{
+    padding: 30px 0px 20px 0px;
+}
+
+.socialmedia-title{
+   text-align: center;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color:rgb(0, 0, 0);
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+    
+}
+
+.socialmedia-p{
+   
+ font-size: 20px;
+ color: rgb(255, 255, 255);
+ padding: 8px 10px 5px 10px;
+ background-color: #0071FF;
+ border-radius: 50px;
+
+}
+
+.flex-container-socialmedia {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: stretch;
+  }
+
+
+  .footerbase{
+    background: linear-gradient(91.79deg, #0071FF 4.41%, #0560FC 90.44%);
+    padding:10px 0px 10px 0px;
+    color: white;
+    font-size:smaller;
+    padding-left: 5%;
+    padding-right: 5%;
+    font-weight: 400;
+    
+}
+
+.footerbase-copyright{
+    text-align: center;
+}
+
+.footer-bg{
+    padding: 3% 5% 0% 5%;
+    }
+    

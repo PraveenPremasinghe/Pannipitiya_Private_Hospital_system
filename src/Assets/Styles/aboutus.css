@@ -1,0 +1,71 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap');
+
+
+
+.intoduction-left{
+
+align-items: center;
+}
+
+
+.intoduction-header{
+    font-family: 'Poppins';
+    font-style: normal;
+  /* max-width: 600px; */
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 38px;
+    text-align: center;
+   
+   
+ 
+    
+}
+
+.intoduction-body-q{
+    padding-top: 15px;
+    font-family: 'Outfit';
+font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 170%;
+letter-spacing: 0.02em;
+color: #4D4D4D;
+align-items: center;
+text-align: center;
+letter-spacing: 0.02em ;
+
+
+}
+
+.IntroductionImage>img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.readmorebtn{
+    float: right;
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+color: #002D66;
+margin-top: 50px !important;
+cursor: pointer;
+}
+
+.lernmorebtn{
+    background: linear-gradient(90deg, #0071FF 0%, #00BAF7 100%);
+    border-radius: 110px;
+color: white;
+padding: 15px 60px 15px 60px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+text-align: center;
+color: #FFFFFF;
+}

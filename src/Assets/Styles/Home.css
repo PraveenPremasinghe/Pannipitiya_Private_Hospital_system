@@ -1,0 +1,22 @@
+.populercard{
+    
+    font-family: 'Outfit';
+font-style: normal;
+font-weight: 600;
+font-size: 25px;
+line-height: 32px;
+display: flex;
+align-items: center;
+letter-spacing: 0.02em;
+color: #002D66;
+padding: 10px 0px 10px 0px;
+}
+
+.populercard-body{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.introduction-section{
+    background: linear-gradient(235.28deg, rgba(0, 113, 255, 0.18) 1.55%, rgba(0, 186, 247, 0.09) 97.99%);
+}

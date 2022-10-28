@@ -1,0 +1,16 @@
+.Appointment{
+    margin-top: 40px;
+background: linear-gradient(89.78deg, #0071FF -1.42%, #0071FF -1.41%, #018DF7 97.95%);
+border-radius: 200px;background-color: aquamarine;
+color: white;
+padding: 15px 60px 15px 60px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 21px;
+display: flex;
+align-items: center;
+text-align: center;
+color: #FFFFFF;
+}

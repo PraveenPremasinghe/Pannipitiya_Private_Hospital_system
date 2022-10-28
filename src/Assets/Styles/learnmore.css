@@ -1,0 +1,10 @@
+.LearnMore{
+    background: linear-gradient(90deg, #0071FF 0%, #00BAF7 100%);
+border-radius: 110px;
+color: white;
+padding: 15px 50px 15px 50px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+}
