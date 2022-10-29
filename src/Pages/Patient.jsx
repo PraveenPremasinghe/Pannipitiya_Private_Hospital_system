@@ -117,7 +117,7 @@ function Patient() {
               <div className="col">
                 <div className="addpatient">
                 <Button variant="outlined" onClick={handleClickOpen}>
-        Open responsive dialog
+        Add now
       </Button>
                   <Addbutton
                     addbuttonicon={<FiPlusCircle />}

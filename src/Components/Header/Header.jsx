@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
+
 import { FiMapPin,FiMail,FiPhoneCall} from 'react-icons/fi';
 
 import "./Header.css";
@@ -69,23 +71,29 @@ function Header() {
     <div className={`menu ${menu && "is-active" }`}  id="menu">
       <ul className="menu-inner">
         <li className="menu-item">
+          
           <a href="#" className="menu-link" onClick={closeMenu}>
-            Home
+            <Link to="/Patient">Home</Link>
           </a>
         </li>
         <li className="menu-item">
           <a href="#" className="menu-link" onClick={closeMenu}>
-          Radiology
+          {/* Radiology */}
+          <Link to="/Doctor">Doctor</Link>
           </a>
         </li>
         <li className="menu-item">
           <a href="#" className="menu-link" onClick={closeMenu}>
-          Department
+          {/* Department */}
+          <Link to="/Staff">Staff</Link>
+
           </a>
         </li>
         <li className="menu-item">
           <a href="#" className="menu-link" onClick={closeMenu}>
-          Services
+          {/* Services */}
+          <Link to="/Appointments">Appointments</Link>
+
           </a>
         </li>
         <li className="menu-item">
