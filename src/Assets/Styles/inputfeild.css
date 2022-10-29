@@ -1,0 +1,16 @@
+.input-title{
+
+    color: rgb(85, 85, 85);
+    padding-bottom: 3px;
+}
+
+.input-feild{
+    width: 500px;
+    padding: 7px 10px 7px 10px;
+    border: 1px solid #a1a1a1b0;
+    border-radius: 5px;
+}
+
+.inputfeildcover{
+    padding: 10px 0px 10px 0px;
+}

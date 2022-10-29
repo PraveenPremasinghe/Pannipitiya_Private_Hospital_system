@@ -1,0 +1,38 @@
+
+.dash-padding{
+    /* padding-left: 2%; */
+    padding-right: 2%;
+    background: #F9F9F9;
+}
+
+.nevside{
+    padding-top: 50px;
+}
+
+.dashtitle{
+    font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 30px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: capitalize;
+
+color: #000000;
+}
+
+.dashhr{
+    border: 1px solid rgba(205, 205, 205, 0.849);
+}
+
+.right-sied{
+   padding: 30px 30px 30px 30px;
+    background: #FFFFFF;
+border: 0.5px solid #ccccccb0;
+box-shadow: 5px 5px 28px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
+}
