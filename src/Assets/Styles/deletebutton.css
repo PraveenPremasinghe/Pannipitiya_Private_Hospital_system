@@ -1,0 +1,14 @@
+.deletebutton{
+    float: right;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 7px;
+    align-items: center;
+    text-align: center;
+    background: #ff0404;
+border-radius: 7px;
+    color: #FFFFFF;
+    padding: 10px 20px 10px 20px;
+}

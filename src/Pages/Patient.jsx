@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
@@ -25,15 +25,54 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
-import {getAllPatients} from "../services/Patient";
-
-
+import { getAllPatients, createPatient } from "../services/Patient";
 
 function Patient() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [patientList, setList] = useState([]);
+
+  const [name,setName] = useState("");
+  const [Nic,setNic] = useState("");
+  const [email,setEmail] = useState("");
+  const [checkIn,setCheckIn] = useState("");
+  const [checkOut,setCheckOut] = useState("");
+  const [contact,setContact] = useState("");
+  const [roomNo,setRoomNo] = useState("");
+  const [status,setStatus] = useState("");
+  const [doctor,setDoctor] = useState(1);
+  const [createDate,setCreateDate] = useState("2018-10-14"); 
+  const [updateDate,setUpdateDate] = useState("2018-10-14"); 
+
+  console.log();
+
+  const handleSave = () => {
+    let patient = {
+      name: name,
+      nic:Nic,
+      email: email,
+      check_in: checkIn,
+      check_out: checkOut,
+      contact:contact,
+      room_no: roomNo,
+      status: status,
+      doctor_id:doctor,
+      created_at: createDate,
+      updated_at: updateDate
+    };
+
+    createPatient(patient)
+    .then((response) => {
+      alert("Data successfully inserted");
+      window.location.reload(true);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,32 +83,31 @@ function Patient() {
   };
 
   useEffect(() => {
-      getPatients();
-    }, []);
+    getPatients();
+  }, []);
 
-   const getPatients = async () => {
-        try {
-            const response = await getAllPatients();
-            setList(response.data)
-            console.log(response.data);
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    let patientLists = async () =>{
-        return patientList.map((patient) => {
-            return (
-                <PatientTable
-                    key={patient.id}
-                    patient={patientList}
-                    deleteEmployee={this.removeEmployee}
-                    updateEmployee={this.updateEmployee}
-                />
-            );
-        });
+  const getPatients = async () => {
+    try {
+      const response = await getAllPatients();
+      setList(response.data);
+      console.log("hfghg", response.data);
+    } catch (e) {
+      console.log(e);
     }
+  };
 
+  let patientLists = async () => {
+    // return patientList.map((patient) => {
+    return (
+      <PatientTable
+        // key={patient.id}
+        patient={patientList}
+        // deleteEmployee={this.removeEmployee}
+        // updateEmployee={this.updateEmployee}
+      />
+    );
+    // });
+  };
 
   return (
     <div>
@@ -82,14 +120,16 @@ function Patient() {
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">  <InputGroup className="mb-3">
+            {/* <div className="searchbar"> 
+             <InputGroup className="mb-3">
         <Form.Control
           placeholder="Recipient's username"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
         />
         <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-      </InputGroup></div>
+      </InputGroup>
+      </div> */}
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -112,53 +152,48 @@ function Patient() {
           <div className="col-2 dashbordside">
             <div>
               <div className="dashbardbtn">
-              <Link to="/">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiCommand />}
-                  dashbtnname={"Dashboard"}
-                ></Dashboardbtn>{" "}
-         </Link>
-
-              </div>
-              <div className="dashbardbtn">
-              <Link to="/patient">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Patient"}
-                ></Dashboardbtn>{" "}
+                <Link to="/">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiCommand />}
+                    dashbtnname={"Dashboard"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-              <Link to="/doctor">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUser />}
-                  dashbtnname={"Doctor"}
-                ></Dashboardbtn>{" "}
+                <Link to="/patient">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Patient"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Staff">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Staff"}
-                ></Dashboardbtn>{" "}
+                <Link to="/doctor">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUser />}
+                    dashbtnname={"Doctor"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Appointments">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiVoicemail />}
-                  dashbtnname={"Appointments"}
-                ></Dashboardbtn>{" "}
+                <Link to="/Staff">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Staff"}
+                  ></Dashboardbtn>{" "}
+                </Link>
+              </div>
+              <div className="dashbardbtn">
+                <Link to="/Appointments">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiVoicemail />}
+                    dashbtnname={"Appointments"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
             </div>
@@ -187,15 +222,12 @@ function Patient() {
               </div>
             </div>
 
-            <Button variant="outlined" >
-              Delete
-            </Button>
+            <Button variant="outlined">Delete</Button>
 
             <hr className="dashhr" />
 
             {/* Patient Table */}
-            <PatientTable list = {{"name":"janith"}}/>
-
+            <PatientTable list={patientList} />
 
             {/* Patient Table */}
           </div>
@@ -216,16 +248,15 @@ function Patient() {
         <DialogContent>
           <DialogContentText>
             {/* add input feilds */}
-            <InputFeild fristname="Patient Name"></InputFeild>
-            <InputFeild fristname="Patient NIC"></InputFeild>
-            <InputFeild fristname="Patient Email"></InputFeild>
-            <InputFeild fristname="Patient Email"></InputFeild>
-            <InputFeild fristname="Date Checkin"></InputFeild>
-            <InputFeild fristname="Doctor Assigned"></InputFeild>
-            <InputFeild fristname="Disease"></InputFeild>
-            <InputFeild fristname="Status"></InputFeild>
-            <InputFeild fristname="RoomNumber"></InputFeild>
-            <InputFeild fristname="Contact"></InputFeild>
+            <InputFeild fristname="Patient Name" value={name} onChange={(e) => setName(e.target.value)}></InputFeild>
+            <InputFeild fristname="Patient NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
+            <InputFeild fristname="Patient Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
+            {/* <InputFeild fristname="Patient Email"></InputFeild> */}
+            <InputFeild fristname="Date Checkin" value={checkIn} onChange={(e) => setCheckIn(e.target.value)}></InputFeild>
+            <InputFeild fristname="Date Checkout" value={checkOut} onChange={(e) => setCheckOut(e.target.value)}></InputFeild>
+            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
+            <InputFeild fristname="RoomNumber" value={roomNo} onChange={(e) => setRoomNo(e.target.value)}></InputFeild>
+            <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
             {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
@@ -233,7 +264,7 @@ function Patient() {
           <Button autoFocus onClick={handleClose}>
             Close
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleSave} autoFocus>
             Save
           </Button>
         </DialogActions>
@@ -242,6 +273,7 @@ function Patient() {
       {/* ModalBox */}
     </div>
   );
-}
+};
+
 
 export default Patient;

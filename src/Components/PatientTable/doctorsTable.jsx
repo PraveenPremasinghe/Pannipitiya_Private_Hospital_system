@@ -179,7 +179,6 @@ export default function CollapsibleTable() {
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
-           
           </TableRow>
         </TableHead>
         <TableBody>

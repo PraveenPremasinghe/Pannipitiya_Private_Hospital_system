@@ -15,6 +15,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditButton from '../editbutton/editbutton';
+import DeleteButton from '../deletebutton/deletebutton';
+import { deletePatient } from '../../services/Patient';
 
 
 function createData(PatientID,PatientNIC,PatientName,PatientEmail,Datecheckin,DoctorAssigned,Disease,Status,RoomNumber,Contact) {
@@ -73,7 +76,7 @@ function Row(props) {
         <TableCell align="center">{row.RoomNumber}</TableCell>
         <TableCell align="center">{row.Contact}</TableCell>
 
-        <TableCell><EditIcon/></TableCell>
+        <TableCell><EditIcon /></TableCell>
         <TableCell><DeleteIcon/></TableCell>
         
 
@@ -166,6 +169,18 @@ const rows = [
 ];
 
 export default function CollapsibleTable(props) {
+
+  const handleDelete = (patient_id) => {
+    console.log("del");
+    console.log("del",patient_id);
+    deletePatient(patient_id).then((response) => {
+      console.log("res",response);
+      alert("Data successfully Deleted");
+      window.location.reload(true);
+    });
+  };
+
+
   return (
 
 
@@ -179,8 +194,7 @@ export default function CollapsibleTable(props) {
             <TableCell>Patient Name</TableCell>
             <TableCell>Patient Email</TableCell>
             <TableCell>Datecheck in</TableCell>
-            <TableCell>Doctor Assigned</TableCell>
-            <TableCell>Disease</TableCell>
+            {/* <TableCell>Doctor Assigned</TableCell> */}
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
@@ -188,10 +202,26 @@ export default function CollapsibleTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.list.name}
-          {/*{this.props.list.map((row) => (*/}
-          {/*  <Row key={row.name} row={row} />*/}
-          {/*))}*/}
+          {console.log("abf",props.list)}
+          {props.list.map((row, index) => {
+            return (
+              <TableRow>
+            <TableCell />
+            <TableCell>{row.id} </TableCell>
+            <TableCell>{row.nic}</TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.email}</TableCell>
+            <TableCell>{row.check_in}</TableCell>
+            {/* <TableCell>{row.doctor_id.name}</TableCell> */}
+            <TableCell>{row.status}</TableCell>
+            <TableCell>{row.room_no}</TableCell>
+            <TableCell>{row.contact}</TableCell>
+            {/* <TableCell><EditButton editbuttonname="Edit" onClick={() => editPatient(row.id)}></EditButton></TableCell> */}
+            <TableCell><DeleteButton deletebuttonname="Delete" onClick={() => handleDelete(row.id)}/></TableCell>
+
+          </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
 
