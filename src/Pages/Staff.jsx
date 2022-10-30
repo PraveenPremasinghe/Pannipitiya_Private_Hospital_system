@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
@@ -53,7 +54,14 @@ function Staff() {
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">fdgdfh</div>
+            <div className="searchbar">  <InputGroup className="mb-3">
+        <Form.Control
+          placeholder="Recipient's username"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
+        <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
+      </InputGroup></div>
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -73,42 +81,57 @@ function Staff() {
         </div>
 
         <div className="row nevside">
-          <div className="col-2 dashbordside">
+        <div className="col-2 dashbordside">
             <div>
               <div className="dashbardbtn">
+              <Link to="/">
                 {" "}
                 <Dashboardbtn
                   icon={<FiCommand />}
                   dashbtnname={"Dashboard"}
                 ></Dashboardbtn>{" "}
+         </Link>
+
               </div>
               <div className="dashbardbtn">
+              <Link to="/patient">
+
                 {" "}
                 <Dashboardbtn
                   icon={<FiUsers />}
                   dashbtnname={"Patient"}
                 ></Dashboardbtn>{" "}
+                </Link>
               </div>
               <div className="dashbardbtn">
+              <Link to="/doctor">
+
                 {" "}
                 <Dashboardbtn
                   icon={<FiUser />}
                   dashbtnname={"Doctor"}
                 ></Dashboardbtn>{" "}
+                </Link>
               </div>
               <div className="dashbardbtn">
+
+              <Link to="/Staff">
                 {" "}
                 <Dashboardbtn
                   icon={<FiUsers />}
                   dashbtnname={"Staff"}
                 ></Dashboardbtn>{" "}
+                </Link>
               </div>
               <div className="dashbardbtn">
+
+              <Link to="/Appointments">
                 {" "}
                 <Dashboardbtn
                   icon={<FiVoicemail />}
                   dashbtnname={"Appointment"}
                 ></Dashboardbtn>{" "}
+                </Link>
               </div>
             </div>
           </div>
