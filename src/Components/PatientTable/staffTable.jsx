@@ -16,7 +16,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
 function createData(PatientID,PatientNIC,PatientName,PatientEmail,Datecheckin,DoctorAssigned,Disease,Status,RoomNumber,Contact) {
   return {
 PatientID,
@@ -76,9 +75,6 @@ function Row(props) {
         <TableCell><EditIcon/></TableCell>
         <TableCell><DeleteIcon/></TableCell>
         
-
-
-
       </TableRow>
 
       <TableRow>
@@ -119,7 +115,6 @@ function Row(props) {
     </React.Fragment>
   );
 }
-
 
 Row.propTypes = {
   row: PropTypes.shape({
@@ -162,13 +157,13 @@ const rows = [
   createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
   createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
 
-
+ 
 ];
 
-export default function CollapsibleTable(props) {
+export default function CollapsibleTable() {
   return (
 
-
+    
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -184,19 +179,18 @@ export default function CollapsibleTable(props) {
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
-
+           
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.list.name}
-          {/*{this.props.list.map((row) => (*/}
-          {/*  <Row key={row.name} row={row} />*/}
-          {/*))}*/}
+          {rows.map((row) => (
+            <Row key={row.name} row={row} />
+          ))}
         </TableBody>
       </Table>
-
+      
     </TableContainer>
 
-
+    
   );
 }
