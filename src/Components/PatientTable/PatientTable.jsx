@@ -151,13 +151,13 @@ const rows = [
   createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
   createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
 
- 
+
 ];
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable(props) {
   return (
 
-    
+
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -173,18 +173,19 @@ export default function CollapsibleTable() {
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
-           
+
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
+          {this.props.list.name}
+          {/*{this.props.list.map((row) => (*/}
+          {/*  <Row key={row.name} row={row} />*/}
+          {/*))}*/}
         </TableBody>
       </Table>
-      
+
     </TableContainer>
 
-    
+
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from '../Assets/Images/dashlogo.png';
@@ -16,8 +16,6 @@ import {
   FiPlusCircle,
 } from "react-icons/fi";
 
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import Addbutton from "../Components/addbutton/addbutton";
 import PatientTable from "../Components/PatientTable/PatientTable";
 
@@ -30,11 +28,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
+import {getAllPatients} from "../services/Patient";
+
+
 
 function Patient() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [patientList, setList] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,6 +45,34 @@ function Patient() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+      getPatients();
+    }, []);
+
+   const getPatients = async () => {
+        try {
+            const response = await getAllPatients();
+            setList(response.data)
+            console.log(response.data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    let patientLists = async () =>{
+        return patientList.map((patient) => {
+            return (
+                <PatientTable
+                    key={patient.id}
+                    patient={patientList}
+                    deleteEmployee={this.removeEmployee}
+                    updateEmployee={this.updateEmployee}
+                />
+            );
+        });
+    }
+
 
   return (
     <div>
@@ -139,7 +169,9 @@ function Patient() {
             <hr className="dashhr" />
 
             {/* Patient Table */}
-            <PatientTable></PatientTable>
+            <PatientTable list = {{"name":"janith"}}/>
+
+
             {/* Patient Table */}
           </div>
 
@@ -149,8 +181,8 @@ function Patient() {
 
 
       {/* ModalBox */}
-    
-      
+
+
       <Dialog
         fullScreen={fullScreen}
         open={open}
@@ -185,7 +217,7 @@ function Patient() {
           </Button>
         </DialogActions>
       </Dialog>
-   
+
       {/* ModalBox */}
     </div>
   );
