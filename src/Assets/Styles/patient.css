@@ -1,12 +1,13 @@
 
 .dash-padding{
-    /* padding-left: 2%; */
+    padding-left: 1%;
     padding-right: 2%;
-    background: #F9F9F9;
+    padding-top: 20px;
+    background: #ffffff;
 }
 
 .nevside{
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 .dashtitle{
@@ -36,3 +37,87 @@ border: 0.5px solid #ccccccb0;
 box-shadow: 5px 5px 28px rgba(0, 0, 0, 0.1);
 border-radius: 10px;
 }
+
+.searchbar{
+    padding: 0px 100px 0px 100px;
+    
+}
+
+
+.Notification {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+
+ }
+ .Notification_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #EEF7FE;
+ }
+ .circular--profile {
+    border-radius: 50%;
+ }
+ 
+
+ .Profile_name {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+ }
+ .Message {
+    color: #8D8E8F;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+ 
+ }
+
+ 
+
+
+ .search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  
+  .searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .searchbarinput{
+    width: 100%;
+
+  }
+  
+ 

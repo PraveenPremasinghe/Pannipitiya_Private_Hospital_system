@@ -1,6 +1,10 @@
 import React from "react";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
+import dashlogo from '../Assets/Images/dashlogo.png';
+import profileimg from '../Assets/Images/profile04.png';
+
+
 
 
 
@@ -43,30 +47,32 @@ function Patient() {
   return (
     <div>
       <div className="dash-padding">
-        <div className="row">
-          <div className="col-2">
-            <div className="logo">Logo</div>
+        <div className="row dashbordside">
+          <div className="col-3 ">
+            <div className="logo"><img  alt="logo" src={dashlogo}/></div>
           </div>
-          <div className="col-8">
+          <div className="col-7">
             {" "}
             <div className="searchbar">
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-              </InputGroup>
+            fdgdfh
             </div>
           </div>
-          <div className="col-2">
-            <div className="profile">dfd</div>
+          <div className="col-2 justify-content-center">
+          <div className="Notification">
+                     <div className="Notification_icon">
+                        <img className="circular--profile" alt="profile image" src={profileimg}/>
+                     </div>
+                     <div className="Card_message">
+                        <div className="Profile_name">David Willy</div>
+                        <div className="Message">Project Manager
+                        </div>
+                     </div>
+                  </div>
           </div>
         </div>
 
         <div className="row nevside">
-          <div className="col-2">
+          <div className="col-3 dashbordside" >
             <div>
               <div className="dashbardbtn">
                 {" "}
@@ -108,7 +114,7 @@ function Patient() {
 
           {/* right side components */}
 
-          <div className="col-10 right-sied">
+          <div className="col-9 right-sied">
             <div className="row">
               <div className="col">
                 {" "}
@@ -127,6 +133,8 @@ function Patient() {
                 </div>
               </div>
             </div>
+
+            <Button variant="outlined" onClick={handleClickOpen}>Delete</Button>
 
             <hr className="dashhr" />
 
