@@ -119,7 +119,7 @@ function Staff() {
             <div className="row">
               <div className="col">
                 {" "}
-                <div className="dashtitle">Patient Details</div>{" "}
+                <div className="dashtitle">Staff Details</div>{" "}
               </div>
               <div className="col">
                 <div className="addpatient">

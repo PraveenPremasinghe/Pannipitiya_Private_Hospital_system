@@ -118,7 +118,7 @@ function Doctor() {
             <div className="row">
               <div className="col">
                 {" "}
-                <div className="dashtitle">Patient Details</div>{" "}
+                <div className="dashtitle">Doctor Details</div>{" "}
               </div>
               <div className="col">
                 <div className="addpatient">

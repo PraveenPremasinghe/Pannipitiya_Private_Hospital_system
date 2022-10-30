@@ -51,7 +51,8 @@ function Patient() {
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">fdgdfh</div>
+            <InputFeild></InputFeild>
+            <div className="searchbar"></div>
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">

@@ -13,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function createData(PatientID,PatientNIC,PatientName,PatientEmail,Datecheckin,DoctorAssigned,Disease,Status,RoomNumber,Contact) {
   return {
@@ -69,6 +71,10 @@ function Row(props) {
         <TableCell align="center">{row.Status}</TableCell>
         <TableCell align="center">{row.RoomNumber}</TableCell>
         <TableCell align="center">{row.Contact}</TableCell>
+
+        <TableCell><EditIcon/></TableCell>
+        <TableCell><DeleteIcon/></TableCell>
+        
       </TableRow>
 
       <TableRow>
