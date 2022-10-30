@@ -1,6 +1,8 @@
 import React from "react";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
+import dashlogo from "../Assets/Images/dashlogo.png";
+import profileimg from "../Assets/Images/profile04.png";
 
 
 
@@ -15,7 +17,7 @@ import {
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Addbutton from "../Components/addbutton/addbutton";
-import PatientTable from "../Components/PatientTable/PatientTable";
+import StaffTableTable from "../Components/PatientTable/staffTable";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -43,30 +45,35 @@ function Staff() {
   return (
     <div>
       <div className="dash-padding">
-        <div className="row">
-          <div className="col-2">
-            <div className="logo">Logo</div>
-          </div>
-          <div className="col-8">
-            {" "}
-            <div className="searchbar">
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-              </InputGroup>
+        <div className="row dashbordside">
+          <div className="col-3 ">
+            <div className="logo">
+              <img alt="logo" src={dashlogo} />
             </div>
           </div>
-          <div className="col-2">
-            <div className="profile">dfd</div>
+          <div className="col-7">
+            {" "}
+            <div className="searchbar">fdgdfh</div>
+          </div>
+          <div className="col-2 justify-content-center">
+            <div className="Notification">
+              <div className="Notification_icon">
+                <img
+                  className="circular--profile"
+                  alt="profile image"
+                  src={profileimg}
+                />
+              </div>
+              <div className="Card_message">
+                <div className="Profile_name">David Willy</div>
+                <div className="Message">Project Manager</div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="row nevside">
-          <div className="col-2">
+          <div className="col-2 dashbordside">
             <div>
               <div className="dashbardbtn">
                 {" "}
@@ -112,26 +119,32 @@ function Staff() {
             <div className="row">
               <div className="col">
                 {" "}
-                <div className="dashtitle">Staff Details</div>{" "}
+                <div className="dashtitle">Patient Details</div>{" "}
               </div>
               <div className="col">
                 <div className="addpatient">
-                <Button variant="outlined" onClick={handleClickOpen}>
-        Open responsive dialog
-      </Button>
+                  <Button variant="outlined" onClick={handleClickOpen}>
+                    Add now
+                  </Button>
                   <Addbutton
                     addbuttonicon={<FiPlusCircle />}
-                    addbuttonname={"Add Staff"}
-                    variant="outlined" onClick={handleClickOpen}
+                    addbuttonname={"Add Patient"}
+                    variant="outlined"
+                    onClick={handleClickOpen}
                   ></Addbutton>
                 </div>
               </div>
             </div>
 
+            <Button variant="outlined" >
+              Delete
+            </Button>
+
             <hr className="dashhr" />
 
             {/* Staff Table */}
-            <PatientTable></PatientTable>
+            
+            <StaffTableTable></StaffTableTable>
             {/* Staff Table */}
           </div>
 
