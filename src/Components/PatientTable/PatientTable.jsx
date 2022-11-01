@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState,useEffect} from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -13,8 +13,20 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { deletePatient,updatePatient} from '../../services/Patient';
+
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+import InputFeild from "../../Components/InputFeild/inputfeild";
+
+
 
 
 function createData(PatientID,PatientNIC,PatientName,PatientEmail,Datecheckin,DoctorAssigned,Disease,Status,RoomNumber,Contact) {
@@ -49,6 +61,9 @@ function Row(props) {
   const [open, setOpen] = React.useState(false);
 
   return (
+
+
+
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
         <TableCell>
@@ -73,9 +88,9 @@ function Row(props) {
         <TableCell align="center">{row.RoomNumber}</TableCell>
         <TableCell align="center">{row.Contact}</TableCell>
 
-        <TableCell><EditIcon/></TableCell>
+        {/* <TableCell><EditIcon/></TableCell>
         <TableCell><DeleteIcon/></TableCell>
-        
+         */}
 
 
 
@@ -146,29 +161,118 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = [
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
 
- 
-];
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable(props) {
+
+
+  const [open, setOpen] = React.useState(false);
+  const [patientid,setpatientid] = useState("");
+  const [name,setName] = useState("");
+  const [Nic,setNic] = useState("");
+  const [email,setEmail] = useState("");
+  const [checkIn,setCheckIn] = useState("");
+  const [checkOut,setCheckOut] = useState("");
+  const [contact,setContact] = useState("");
+  const [roomNo,setRoomNo] = useState("");
+  const [status,setStatus] = useState("");
+  const [doctor,setDoctor] = useState(1);
+  const [createDate,setCreateDate] = useState("2018-10-14"); 
+  const [updateDate,setUpdateDate] = useState("2018-10-14"); 
+  
+
+const handleClickOpen = (row) => {
+
+  set
+  setOpen(true);
+};
+
+const handleClose = () => {
+  setOpen(false);
+};
+
+  const handleDelete = (patient_id) => {
+    console.log("del");
+    console.log("del",patient_id);
+    deletePatient(patient_id).then((response) => {
+      console.log("res",response);
+      alert("Data successfully Deleted");
+      window.location.reload(true);
+    });
+  };
+
+
+
+
+  const updatepatient = (id) => {
+    let patient = {
+      name: name,
+      nic:Nic,
+      email: email,
+      check_in: checkIn,
+      check_out: checkOut,
+      contact:contact,
+      room_no: roomNo,
+      status: status,
+      doctor_id:doctor,
+      created_at: createDate,
+      updated_at: updateDate
+    };
+
+    updatePatient(id,patient)
+    .then((response) => {
+      alert("Data successfully inserted");
+      window.location.reload(true);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+
+
   return (
 
+    <>
     
+
+    <div>
+     
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Update Patient Details"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {/* add input feilds */}
+            <InputFeild fristname="Patient Name"  value={name} onChange={(e) => setName(e.target.value)}></InputFeild>
+            <InputFeild fristname="Patient NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
+            <InputFeild fristname="Patient Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
+            {/* <InputFeild fristname="Patient Email"></InputFeild> */}
+            <InputFeild fristname="Date Checkin" value={checkIn} onChange={(e) => setCheckIn(e.target.value)}></InputFeild>
+            <InputFeild fristname="Date Checkout" value={checkOut} onChange={(e) => setCheckOut(e.target.value)}></InputFeild>
+            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
+            <InputFeild fristname="RoomNumber" value={roomNo} onChange={(e) => setRoomNo(e.target.value)}></InputFeild>
+            <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
+            {/* add input feilds */}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose} autoFocus>
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+
+
+
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -179,23 +283,45 @@ export default function CollapsibleTable() {
             <TableCell>Patient Name</TableCell>
             <TableCell>Patient Email</TableCell>
             <TableCell>Datecheck in</TableCell>
-            <TableCell>Doctor Assigned</TableCell>
-            <TableCell>Disease</TableCell>
+            {/* <TableCell>Doctor Assigned</TableCell> */}
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
-           
+
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
+          {console.log("abf",props.list)}
+          {props.list.map((row, index) => {
+            return (
+              <TableRow>
+            <TableCell />
+            <TableCell>{row.id} </TableCell>
+            <TableCell>{row.nic}</TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.email}</TableCell>
+            <TableCell>{row.check_in}</TableCell>
+            {/* <TableCell>{row.doctor_id.name}</TableCell> */}
+            <TableCell>{row.status}</TableCell>
+            <TableCell>{row.room_no}</TableCell>
+            <TableCell>{row.contact}</TableCell>
+
+
+            <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+           
+            
+
+          </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
-      
-    </TableContainer>
 
-    
+    </TableContainer>
+    </>
+
+
+
   );
 }

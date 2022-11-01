@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
@@ -28,10 +28,56 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
 
+import {getAllPatients,createPatient} from "../services/Patient";
+
+
+
 function Patient() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [patientList, setList] = useState([]);
+
+  const [name,setName] = useState("");
+  const [Nic,setNic] = useState("");
+  const [email,setEmail] = useState("");
+  const [checkIn,setCheckIn] = useState("");
+  const [checkOut,setCheckOut] = useState("");
+  const [contact,setContact] = useState("");
+  const [roomNo,setRoomNo] = useState("");
+  const [status,setStatus] = useState("");
+  const [doctor,setDoctor] = useState(1);
+  const [createDate,setCreateDate] = useState("2018-10-14"); 
+  const [updateDate,setUpdateDate] = useState("2018-10-14"); 
+
+  console.log();
+
+  const handleSave = () => {
+    let patient = {
+      name: name,
+      nic:Nic,
+      email: email,
+      check_in: checkIn,
+      check_out: checkOut,
+      contact:contact,
+      room_no: roomNo,
+      status: status,
+      doctor_id:doctor,
+      created_at: createDate,
+      updated_at: updateDate
+    };
+
+    createPatient(patient)
+    .then((response) => {
+      alert("Data successfully inserted");
+      window.location.reload(true);
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,6 +86,34 @@ function Patient() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    getPatients();
+  }, []);
+
+  const getPatients = async () => {
+    try {
+      const response = await getAllPatients();
+      setList(response.data);
+      console.log("hfghg", response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  let patientLists = async () => {
+    // return patientList.map((patient) => {
+    return (
+      <PatientTable
+        // key={patient.id}
+        patient={patientList}
+        // deleteEmployee={this.removeEmployee}
+        // updateEmployee={this.updateEmployee}
+      />
+    );
+    // });
+  };
+
 
   return (
     <div>
@@ -54,8 +128,8 @@ function Patient() {
             {" "}
             <div className="searchbar">  <InputGroup className="mb-3">
         <Form.Control
-          placeholder="Recipient's username"
-          aria-label="Recipient's username"
+          placeholder="Search"
+          aria-label="Search"
           aria-describedby="basic-addon2"
         />
         <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
@@ -79,7 +153,7 @@ function Patient() {
         </div>
 
         <div className="row nevside">
-          <div className="col-2 dashbordside">
+          <div className="col-3 dashbordside">
             <div>
               <div className="dashbardbtn">
               <Link to="/">
@@ -136,7 +210,7 @@ function Patient() {
 
           {/* right side components */}
 
-          <div className="col-10 right-sied">
+          <div className="col-9 right-sied">
             <div className="row">
               <div className="col">
                 {" "}
@@ -144,9 +218,8 @@ function Patient() {
               </div>
               <div className="col">
                 <div className="addpatient">
-                  <Button variant="outlined" onClick={handleClickOpen}>
-                    Add now
-                  </Button>
+                
+
                   <Addbutton
                     addbuttonicon={<FiPlusCircle />}
                     addbuttonname={"Add Patient"}
@@ -157,14 +230,15 @@ function Patient() {
               </div>
             </div>
 
-            <Button variant="outlined" >
-              Delete
-            </Button>
+       
+
+
+         
 
             <hr className="dashhr" />
 
             {/* Patient Table */}
-            <PatientTable></PatientTable>
+            <PatientTable list={patientList}/>
             {/* Patient Table */}
           </div>
 
@@ -184,16 +258,15 @@ function Patient() {
         <DialogContent>
           <DialogContentText>
             {/* add input feilds */}
-            <InputFeild fristname="Patient Name"></InputFeild>
-            <InputFeild fristname="Patient NIC"></InputFeild>
-            <InputFeild fristname="Patient Email"></InputFeild>
-            <InputFeild fristname="Patient Email"></InputFeild>
-            <InputFeild fristname="Date Checkin"></InputFeild>
-            <InputFeild fristname="Doctor Assigned"></InputFeild>
-            <InputFeild fristname="Disease"></InputFeild>
-            <InputFeild fristname="Status"></InputFeild>
-            <InputFeild fristname="RoomNumber"></InputFeild>
-            <InputFeild fristname="Contact"></InputFeild>
+            <InputFeild fristname="Patient Name"  value={name} onChange={(e) => setName(e.target.value)}></InputFeild>
+            <InputFeild fristname="Patient NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
+            <InputFeild fristname="Patient Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
+            {/* <InputFeild fristname="Patient Email"></InputFeild> */}
+            <InputFeild fristname="Date Checkin" value={checkIn} onChange={(e) => setCheckIn(e.target.value)}></InputFeild>
+            <InputFeild fristname="Date Checkout" value={checkOut} onChange={(e) => setCheckOut(e.target.value)}></InputFeild>
+            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
+            <InputFeild fristname="RoomNumber" value={roomNo} onChange={(e) => setRoomNo(e.target.value)}></InputFeild>
+            <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
             {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
@@ -201,7 +274,7 @@ function Patient() {
           <Button autoFocus onClick={handleClose}>
             Close
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleSave} autoFocus>
             Save
           </Button>
         </DialogActions>

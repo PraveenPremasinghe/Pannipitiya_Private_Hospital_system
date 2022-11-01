@@ -1,0 +1,40 @@
+.signup{
+    font-size: larger;
+    font-weight: 800;
+    padding-top: 50px;
+    padding-bottom:20px;
+}
+
+.logologin{
+    margin-top: 20px;
+    margin-left:25%;
+    margin-right: 25%;
+}
+
+.logincover{
+    padding-left: 1%;
+    padding-right: 5%;
+    margin-right: 5px;
+}
+
+.loginbuttn{
+    background: linear-gradient(269.65deg, #04D5C7 0.11%, #1DBFC1 99.81%);
+border-radius: 6px;
+padding: 10px 20px 10px 20px;
+color: white;
+width: 100%;
+margin-top: 40px;
+
+}
+
+.account{
+    margin-top: 90px;
+    font-size: medium;
+    text-align: center;
+
+}
+
+.loginimg{
+    width: 100%;
+height:90% ;
+}

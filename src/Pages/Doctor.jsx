@@ -55,8 +55,8 @@ function Doctor() {
             {" "}
             <div className="searchbar">  <InputGroup className="mb-3">
         <Form.Control
-          placeholder="Recipient's username"
-          aria-label="Recipient's username"
+          placeholder="Search"
+          aria-label="Search"
           aria-describedby="basic-addon2"
         />
         <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
@@ -80,7 +80,7 @@ function Doctor() {
         </div>
 
         <div className="row nevside">
-        <div className="col-2 dashbordside">
+        <div className="col-3 dashbordside">
             <div>
               <div className="dashbardbtn">
               <Link to="/">
@@ -137,7 +137,7 @@ function Doctor() {
 
           {/* right side components */}
 
-          <div className="col-10 right-sied">
+          <div className="col-9 right-sied">
             <div className="row">
               <div className="col">
                 {" "}
@@ -145,12 +145,12 @@ function Doctor() {
               </div>
               <div className="col">
                 <div className="addpatient">
-                  <Button variant="outlined" onClick={handleClickOpen}>
+                  {/* <Button variant="outlined" onClick={handleClickOpen}>
                     Add now
-                  </Button>
+                  </Button> */}
                   <Addbutton
                     addbuttonicon={<FiPlusCircle />}
-                    addbuttonname={"Add Patient"}
+                    addbuttonname={"Add Doctor"}
                     variant="outlined"
                     onClick={handleClickOpen}
                   ></Addbutton>
@@ -158,9 +158,9 @@ function Doctor() {
               </div>
             </div>
 
-            <Button variant="outlined" >
+            {/* <Button variant="outlined" >
               Delete
-            </Button>
+            </Button> */}
 
             <hr className="dashhr" />
 

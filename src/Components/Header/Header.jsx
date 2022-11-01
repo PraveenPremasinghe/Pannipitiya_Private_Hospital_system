@@ -6,7 +6,7 @@ import { FiMapPin,FiMail,FiPhoneCall} from 'react-icons/fi';
 import "./Header.css";
 import backgroundImg from '../../Assets/Images/mainimage.png';
 import Appointment from "../Appointment/Appointment";
-import dashlogo from "../../Assets/Images/dashlogo.png";
+import Logo from "../../Assets/Images/logo.png";
 
 
 function Header() {
@@ -62,7 +62,7 @@ function Header() {
 
   <nav className="navbar">
     <a href="#" className="brand">
-    <img alt="logo" src={dashlogo} />
+    <img alt="logo" src={Logo} />
     </a> 
     <div className={`burger ${menu && "is-active" }`}  id="burger" onClick={menu ? closeMenu:toggleMenu}>
       <span className="burger-line"></span>
