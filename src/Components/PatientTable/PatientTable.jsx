@@ -183,7 +183,7 @@ export default function CollapsibleTable(props) {
 
 const handleClickOpen = (row) => {
 
-  set
+  
   setOpen(true);
 };
 
