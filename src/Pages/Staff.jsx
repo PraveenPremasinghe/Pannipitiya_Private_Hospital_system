@@ -1,11 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
 import profileimg from "../Assets/Images/profile04.png";
-
-
 
 import {
   FiCommand,
@@ -18,7 +16,7 @@ import {
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Addbutton from "../Components/addbutton/addbutton";
-import StaffTableTable from "../Components/PatientTable/staffTable";
+import StaffTable from "../Components/PatientTable/StaffTable";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -30,10 +28,46 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
 
+import { getAllStaff, createStaff } from "../services/Staff";
+
 function Staff() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [staffList, setList] = useState([]);
+
+
+
+const [name, setName] = useState("");
+const [Nic, setNic] = useState("");
+const [email, setEmail] = useState("");
+const [doctorid , setDoctorid] = useState("");
+const [status, setStatus] = useState("");
+const [contact, setContact] = useState("");
+
+
+  console.log();
+
+  const handleSave = () => {
+    let staff = {
+
+      name: name,
+      nic: Nic,
+      email: email,
+      doctor_id: doctorid,
+      contact: contact,
+      status: status,
+    };
+
+    createStaff(staff)
+      .then((response) => {
+        alert("Data successfully inserted");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,6 +75,24 @@ function Staff() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  useEffect(() => {
+    getStaffs();
+  }, []);
+
+  const getStaffs = async () => {
+    try {
+      const response = await getAllStaff();
+      setList(response.data);
+      console.log("hfghg", response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  let staffLists = async () => {
+    return <StaffTable staff={staffList} />;
   };
 
   return (
@@ -54,14 +106,17 @@ function Staff() {
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">  <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Search"
-          aria-label="Search"
-          aria-describedby="basic-addon2"
-        />
-        <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-      </InputGroup></div>
+            <div className="searchbar">
+              {" "}
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
+              </InputGroup>
+            </div>
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -81,56 +136,51 @@ function Staff() {
         </div>
 
         <div className="row nevside">
-        <div className="col-3 dashbordside">
+          <div className="col-3 dashbordside">
             <div>
               <div className="dashbardbtn">
-              <Link to="/">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiCommand />}
-                  dashbtnname={"Dashboard"}
-                ></Dashboardbtn>{" "}
-         </Link>
-
-              </div>
-              <div className="dashbardbtn">
-              <Link to="/patient">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Patient"}
-                ></Dashboardbtn>{" "}
+                <Link to="/">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiCommand />}
+                    dashbtnname={"Dashboard"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-              <Link to="/doctor">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUser />}
-                  dashbtnname={"Doctor"}
-                ></Dashboardbtn>{" "}
+                <Link to="/staff">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Staff"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Staff">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Staff"}
-                ></Dashboardbtn>{" "}
+                <Link to="/doctor">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUser />}
+                    dashbtnname={"Doctor"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Appointments">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiVoicemail />}
-                  dashbtnname={"Appointment"}
-                ></Dashboardbtn>{" "}
+                <Link to="/Staff">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Staff"}
+                  ></Dashboardbtn>{" "}
+                </Link>
+              </div>
+              <div className="dashbardbtn">
+                <Link to="/Appointments">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiVoicemail />}
+                    dashbtnname={"Appointments"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
             </div>
@@ -145,10 +195,7 @@ function Staff() {
                 <div className="dashtitle">Staff Details</div>{" "}
               </div>
               <div className="col">
-                <div className="addpatient">
-                  {/* <Button variant="outlined" onClick={handleClickOpen}>
-                    Add now
-                  </Button> */}
+                <div className="addstaff">
                   <Addbutton
                     addbuttonicon={<FiPlusCircle />}
                     addbuttonname={"Add Staff"}
@@ -159,15 +206,10 @@ function Staff() {
               </div>
             </div>
 
-            {/* <Button variant="outlined" >
-              Delete
-            </Button> */}
-
             <hr className="dashhr" />
 
             {/* Staff Table */}
-            
-            <StaffTableTable></StaffTableTable>
+            <StaffTable list={staffList} />
             {/* Staff Table */}
           </div>
 
@@ -175,45 +217,61 @@ function Staff() {
         </div>
       </div>
 
-
       {/* ModalBox */}
-    
-      
+
       <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Add Staff"}
-        </DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{"Add Staff"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-      {/* add input feilds */}
-      <InputFeild fristname = "Staff Name"></InputFeild>
-      <InputFeild fristname = "Staff NIC"></InputFeild>
-      <InputFeild fristname = "Staff Email"></InputFeild>
-      <InputFeild fristname = "Staff Email"></InputFeild>
-      <InputFeild fristname = "Date Checkin"></InputFeild>
-      <InputFeild fristname = "Doctor Assigned"></InputFeild>
-      <InputFeild fristname = "Disease"></InputFeild>
-      <InputFeild fristname = "Status"></InputFeild>
-      <InputFeild fristname = "RoomNumber"></InputFeild>
-      <InputFeild fristname = "Contact"></InputFeild>
-      {/* add input feilds */}
+            {/* add input feilds */}
+            <InputFeild
+              fristname="Staff Member Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Staff Member NIC"
+              value={Nic}
+              onChange={(e) => setNic(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Staff Member Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></InputFeild>
+               <InputFeild
+              fristname="Doctor ID"
+              value={doctorid}
+              onChange={(e) => setStatus(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Contact"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+            ></InputFeild>
+            {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Close
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleSave} autoFocus>
             Save
           </Button>
         </DialogActions>
       </Dialog>
-   
+
       {/* ModalBox */}
     </div>
   );

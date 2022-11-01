@@ -1,28 +1,19 @@
 /** @format */
-import { Axios } from "./index";
+// import { Axios } from "./index";
+import axios from "axios";
 
-export const createEmployee = (employee) => {
-  return Axios.post(`/employee/`, employee);
-};
 export const getAllDoctors = () => {
-  return Axios.get(`/doctor/list`);
-};
-export const deleteEmployee = (id) => {
-  return Axios.delete(`/employee/${id}`);
-};
-export const getSingleEmployee = (id) => {
-  return Axios.get(`/employee/employee/${id}`);
-};
-export const updateEmployee = (id, employee) => {
-  return Axios.put(`/employee/${id}`, employee);
+    return axios.get(`http://localhost:3000/api/doctor/list`);
 };
 
-export const getDepartment = () => {
-  return Axios.get(`/department/`);
+export const createDoctor = (data) => {
+    return axios.post(`http://localhost:3000/api/doctor/create`, data);
 };
-export const getAllEmployeesByDep = (id) => {
-  return Axios.post(`/employee/list/?id=${id}`);
+
+export const updateDoctor = (id, doctor) => {
+    return axios.put(`http://localhost:3000/api/doctor/update/${id}`, doctor);
 };
-export const getToatl = (id) => {
-  return Axios.post(`/employee/calculation/?id=${id}`);
+
+export const deleteDoctor = (doctorId) => {
+    return axios.delete(`http://localhost:3000/api/doctor/delete/${doctorId}`);
 };

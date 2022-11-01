@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState,useEffect} from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -15,19 +15,30 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { updateDoctor,deleteDoctor} from '../../services/Doctor';
+import InputFeild from "../../Components/InputFeild/inputfeild";
 
-function createData(PatientID,PatientNIC,PatientName,PatientEmail,Datecheckin,DoctorAssigned,Disease,Status,RoomNumber,Contact) {
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+
+
+function createData(DoctorID,DoctorName,DoctorNIC,DoctorEmail,DoctorSpecialist,Doctorcontact,Doctorjoindate,Status  ) {
   return {
-PatientID,
-PatientNIC,
-PatientName,
-PatientEmail,
-Datecheckin,
-DoctorAssigned,
-Disease,
+DoctorID,
+DoctorName,
+DoctorNIC,
+DoctorEmail,
+DoctorSpecialist,
+Doctorcontact,
+Doctorjoindate,
 Status,
-RoomNumber,
-Contact,
 history: [
       {
         date: '2020-01-05',
@@ -60,18 +71,15 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.PatientID }
+          {row.DoctorID }
         </TableCell>
-        <TableCell align="center">{row.PatientNIC}</TableCell>
-        <TableCell align="center">{row.PatientName}</TableCell>
-        <TableCell align="center" >{row.PatientEmail}</TableCell>
-        <TableCell align="center">{row.Datecheckin}</TableCell>
-        <TableCell align="center">{row.DoctorAssigned}</TableCell>
-        <TableCell align="center">{row.Disease}</TableCell>
-        <TableCell align="center">{row.Status}</TableCell>
-        <TableCell align="center">{row.RoomNumber}</TableCell>
+        <TableCell align="center">{row.DoctorName}</TableCell>
+        <TableCell align="center">{row.DoctorNIC}</TableCell>
+        <TableCell align="center" >{row.DoctorEmail}</TableCell>
+        <TableCell align="center">{row.DoctorSpecialist}</TableCell>
+        <TableCell align="center">{row.Doctorjoindate}</TableCell>
         <TableCell align="center">{row.Contact}</TableCell>
-
+        <TableCell align="center">{row.Status}</TableCell>
         <TableCell><EditIcon/></TableCell>
         <TableCell><DeleteIcon/></TableCell>
         
@@ -118,13 +126,13 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    PatientID : PropTypes.string.isRequired,
-    PatientNIC: PropTypes.string.isRequired,
-    PatientName: PropTypes.string.isRequired,
-    PatientEmail: PropTypes.string.isRequired,
-    Datecheckin: PropTypes.instanceOf(Date).isRequired,
-    DoctorAssigned: PropTypes.string.isRequired,
-    Disease: PropTypes.string.isRequired,
+    DoctorID : PropTypes.string.isRequired,
+    DoctorName: PropTypes.string.isRequired,
+    DoctorNIC: PropTypes.string.isRequired,
+    DoctorEmail: PropTypes.string.isRequired,
+    DoctorSpecialist: PropTypes.instanceOf(Date).isRequired,
+    Doctorcontact: PropTypes.string.isRequired,
+    Doctorjoindate: PropTypes.string.isRequired,
     Status: PropTypes.string.isRequired,
     RoomNumber: PropTypes.number.isRequired,
     Contact: PropTypes.number.isRequired,
@@ -141,56 +149,150 @@ Row.propTypes = {
   }).isRequired,
 };
 
-const rows = [
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
-  createData("001","973040090V","Praveen","kaluwa@gmail.com","10/29/2020","Dr.Kaluwa","head pain","in",156,0),
 
- 
-];
+export default function CollapsibleTable(props) {
 
-export default function CollapsibleTable() {
+  const [open, setOpen] = React.useState(false);
+  const [name, setName] = useState("");
+  const [Nic, setNic] = useState("");
+  const [email, setEmail] = useState("");
+  const[specialist, setSpecialist] = useState("");
+  const [contact, setContact] = useState("");
+  const [date_joined, setDate_joined] = useState("");
+  const[status, setStatus] = useState("");
+
+
+
+  const handleClickOpen = (row) => {
+
+  
+    setOpen(true);
+  };
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
+  
+    const handleDelete = (doctor_Id) => {
+      console.log("del");
+      console.log("del",doctor_Id);
+      deleteDoctor(doctor_Id).then((response) => {
+        console.log("res",response);
+        alert("Data successfully Deleted");
+        window.location.reload(true);
+      });
+    };
+  
+  
+  
+  
+    const updateDoctor = (id) => {
+      let doctor = {
+        name: name,
+        nic: Nic,
+        email: email,
+        specialist: specialist,
+        contact: contact,
+        date_joined: date_joined,
+        status: status,
+     
+      };
+  
+      updateDoctor(id,doctor)
+      .then((response) => {
+        alert("Data successfully inserted");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
+
+  
+
   return (
 
+    <>
     
+
+    <div>
+     
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Update Doctor Details"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {/* add input feilds */}
+            <InputFeild fristname="Doctor Name"  value={name} onChange={(e) => setName(e.target.value)}></InputFeild>
+            <InputFeild fristname="Doctor NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
+            <InputFeild fristname="Doctor Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
+            <InputFeild fristname="Date Specialist" value={specialist} onChange={(e) => setSpecialist(e.target.value)}></InputFeild>
+            <InputFeild fristname="Date Joined date" value={date_joined} onChange={(e) => setDate_joined(e.target.value)}></InputFeild>
+            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
+            <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
+            {/* add input feilds */}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose} autoFocus>
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Patient ID </TableCell>
-            <TableCell>Patient NIC</TableCell>
-            <TableCell>Patient Name</TableCell>
-            <TableCell>Patient Email</TableCell>
-            <TableCell>Datecheck in</TableCell>
-            <TableCell>Doctor Assigned</TableCell>
-            <TableCell>Disease</TableCell>
+            <TableCell>Doctor ID</TableCell>
+            <TableCell>Doctor Name</TableCell>
+            <TableCell>Doctor NIC</TableCell>
+            <TableCell>Doctor Email</TableCell>
+            <TableCell>Doctor Specialist</TableCell>
+            <TableCell>Doctor Date Joined</TableCell>
             <TableCell>Status</TableCell>
-            <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
            
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
+        {console.log("abf",props.list)}
+          {props.list.map((row, index) => {
+            return (
+              <TableRow>
+            <TableCell />
+            <TableCell>{row.id} </TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.nic}</TableCell>
+            <TableCell>{row.email}</TableCell>
+            <TableCell>{row.specialist}</TableCell>
+            <TableCell>{row.date_joined}</TableCell>
+            <TableCell>{row.contact}</TableCell>
+            <TableCell>{row.status}</TableCell>
+
+
+            <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+           
+            
+
+          </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
       
     </TableContainer>
-
+</>
     
   );
 }

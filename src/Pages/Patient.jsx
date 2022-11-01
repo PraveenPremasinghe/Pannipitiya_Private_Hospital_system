@@ -1,5 +1,5 @@
-import React,{useState,useEffect} from "react";
-import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
@@ -28,9 +28,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
 
-import {getAllPatients,createPatient} from "../services/Patient";
-
-
+import { getAllPatients, createPatient } from "../services/Patient";
 
 function Patient() {
   const [open, setOpen] = React.useState(false);
@@ -38,46 +36,44 @@ function Patient() {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [patientList, setList] = useState([]);
 
-  const [name,setName] = useState("");
-  const [Nic,setNic] = useState("");
-  const [email,setEmail] = useState("");
-  const [checkIn,setCheckIn] = useState("");
-  const [checkOut,setCheckOut] = useState("");
-  const [contact,setContact] = useState("");
-  const [roomNo,setRoomNo] = useState("");
-  const [status,setStatus] = useState("");
-  const [doctor,setDoctor] = useState(1);
-  const [createDate,setCreateDate] = useState("2018-10-14"); 
-  const [updateDate,setUpdateDate] = useState("2018-10-14"); 
+  const [name, setName] = useState("");
+  const [Nic, setNic] = useState("");
+  const [email, setEmail] = useState("");
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [contact, setContact] = useState("");
+  const [roomNo, setRoomNo] = useState("");
+  const [status, setStatus] = useState("");
+  const [doctor, setDoctor] = useState(1);
+  const [createDate, setCreateDate] = useState("2018-10-14");
+  const [updateDate, setUpdateDate] = useState("2018-10-14");
 
   console.log();
 
   const handleSave = () => {
     let patient = {
       name: name,
-      nic:Nic,
+      nic: Nic,
       email: email,
       check_in: checkIn,
       check_out: checkOut,
-      contact:contact,
+      contact: contact,
       room_no: roomNo,
       status: status,
-      doctor_id:doctor,
+      doctor_id: doctor,
       created_at: createDate,
-      updated_at: updateDate
+      updated_at: updateDate,
     };
 
     createPatient(patient)
-    .then((response) => {
-      alert("Data successfully inserted");
-      window.location.reload(true);
-    })
-    .catch((error) => {
-      alert(error.message);
-    });
-};
-
-
+      .then((response) => {
+        alert("Data successfully inserted");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -102,18 +98,8 @@ function Patient() {
   };
 
   let patientLists = async () => {
-    // return patientList.map((patient) => {
-    return (
-      <PatientTable
-        // key={patient.id}
-        patient={patientList}
-        // deleteEmployee={this.removeEmployee}
-        // updateEmployee={this.updateEmployee}
-      />
-    );
-    // });
+    return <PatientTable patient={patientList} />;
   };
-
 
   return (
     <div>
@@ -126,14 +112,17 @@ function Patient() {
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">  <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Search"
-          aria-label="Search"
-          aria-describedby="basic-addon2"
-        />
-        <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-      </InputGroup></div>
+            <div className="searchbar">
+              {" "}
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
+              </InputGroup>
+            </div>
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -156,53 +145,48 @@ function Patient() {
           <div className="col-3 dashbordside">
             <div>
               <div className="dashbardbtn">
-              <Link to="/">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiCommand />}
-                  dashbtnname={"Dashboard"}
-                ></Dashboardbtn>{" "}
-         </Link>
-
-              </div>
-              <div className="dashbardbtn">
-              <Link to="/patient">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Patient"}
-                ></Dashboardbtn>{" "}
+                <Link to="/">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiCommand />}
+                    dashbtnname={"Dashboard"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-              <Link to="/doctor">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUser />}
-                  dashbtnname={"Doctor"}
-                ></Dashboardbtn>{" "}
+                <Link to="/patient">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Patient"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Staff">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Staff"}
-                ></Dashboardbtn>{" "}
+                <Link to="/doctor">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUser />}
+                    dashbtnname={"Doctor"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Appointments">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiVoicemail />}
-                  dashbtnname={"Appointments"}
-                ></Dashboardbtn>{" "}
+                <Link to="/Staff">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Staff"}
+                  ></Dashboardbtn>{" "}
+                </Link>
+              </div>
+              <div className="dashbardbtn">
+                <Link to="/Appointments">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiVoicemail />}
+                    dashbtnname={"Appointments"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
             </div>
@@ -218,8 +202,6 @@ function Patient() {
               </div>
               <div className="col">
                 <div className="addpatient">
-                
-
                   <Addbutton
                     addbuttonicon={<FiPlusCircle />}
                     addbuttonname={"Add Patient"}
@@ -230,15 +212,10 @@ function Patient() {
               </div>
             </div>
 
-       
-
-
-         
-
             <hr className="dashhr" />
 
             {/* Patient Table */}
-            <PatientTable list={patientList}/>
+            <PatientTable list={patientList} />
             {/* Patient Table */}
           </div>
 
@@ -258,15 +235,47 @@ function Patient() {
         <DialogContent>
           <DialogContentText>
             {/* add input feilds */}
-            <InputFeild fristname="Patient Name"  value={name} onChange={(e) => setName(e.target.value)}></InputFeild>
-            <InputFeild fristname="Patient NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
-            <InputFeild fristname="Patient Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
+            <InputFeild
+              fristname="Patient Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Patient NIC"
+              value={Nic}
+              onChange={(e) => setNic(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Patient Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></InputFeild>
             {/* <InputFeild fristname="Patient Email"></InputFeild> */}
-            <InputFeild fristname="Date Checkin" value={checkIn} onChange={(e) => setCheckIn(e.target.value)}></InputFeild>
-            <InputFeild fristname="Date Checkout" value={checkOut} onChange={(e) => setCheckOut(e.target.value)}></InputFeild>
-            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
-            <InputFeild fristname="RoomNumber" value={roomNo} onChange={(e) => setRoomNo(e.target.value)}></InputFeild>
-            <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
+            <InputFeild
+              fristname="Date Checkin"
+              value={checkIn}
+              onChange={(e) => setCheckIn(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Date Checkout"
+              value={checkOut}
+              onChange={(e) => setCheckOut(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="RoomNumber"
+              value={roomNo}
+              onChange={(e) => setRoomNo(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Contact"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+            ></InputFeild>
             {/* add input feilds */}
           </DialogContentText>
         </DialogContent>

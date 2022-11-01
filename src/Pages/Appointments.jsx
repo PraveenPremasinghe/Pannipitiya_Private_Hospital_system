@@ -1,11 +1,9 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route,Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../Assets/Styles/patient.css";
 import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
 import profileimg from "../Assets/Images/profile04.png";
-
-
 
 import {
   FiCommand,
@@ -30,10 +28,45 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
 
-function Appointments() {
+import { getAllAppointments, createAppointment } from "../services/Appointments";
+
+function Patient() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [appointmentsList, setList] = useState([]);
+
+const[appointmentId,setPatientId]=useState("");
+const[doctorId,setDoctorId]=useState("");
+const[Date,setDate]=useState("");
+const[type,setType]=useState("");
+const[disease,setDisease]=useState("");
+const[roomNo,setRoomNo]=useState("");
+const[contact,setContact]=useState("");
+
+
+  console.log();
+
+  const handleSave = () => {
+    let appointment = {
+      appointment_id: appointmentId,
+      doctor_id: doctorId,
+      date: Date,
+      type: type,
+      disease: disease,
+      room_no: roomNo,
+      contact: contact,
+    };
+
+    createAppointment(appointment)
+      .then((response) => {
+        alert("Data successfully inserted");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,181 +76,199 @@ function Appointments() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    getappointments();
+  }, []);
+
+  const getappointments = async () => {
+    try {
+      const response = await getAllAppointments();
+      setList(response.data);
+      console.log("hfghg", response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  let appointmentsLists = async () => {
+    return <AppointmentTable appointment={appointmentsList} />;
+  };
+
   return (
     <div>
-    <div className="dash-padding">
-      <div className="row dashbordside">
-        <div className="col-3 ">
-          <div className="logo">
-            <img alt="logo" src={dashlogo} />
-          </div>
-        </div>
-        <div className="col-7">
-          {" "}
-          <div className="searchbar">
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Recipient's username"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-        />
-        <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-      </InputGroup>
-      </div>
-        </div>
-        <div className="col-2 justify-content-center">
-          <div className="Notification">
-            <div className="Notification_icon">
-              <img
-                className="circular--profile"
-                alt="profile image"
-                src={profileimg}
-              />
-            </div>
-            <div className="Card_message">
-              <div className="Profile_name">David Willy</div>
-              <div className="Message">Project Manager</div>
+      <div className="dash-padding">
+        <div className="row dashbordside">
+          <div className="col-3 ">
+            <div className="logo">
+              <img alt="logo" src={dashlogo} />
             </div>
           </div>
+          <div className="col-7">
+            {" "}
+            <div className="searchbar">
+              {" "}
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="Search"
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
+              </InputGroup>
+            </div>
+          </div>
+          <div className="col-2 justify-content-center">
+            <div className="Notification">
+              <div className="Notification_icon">
+                <img
+                  className="circular--profile"
+                  alt="profile image"
+                  src={profileimg}
+                />
+              </div>
+              <div className="Card_message">
+                <div className="Profile_name">David Willy</div>
+                <div className="Message">Project Manager</div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="row nevside">
-      <div className="col-3 dashbordside">
+        <div className="row nevside">
+          <div className="col-3 dashbordside">
             <div>
               <div className="dashbardbtn">
-              <Link to="/">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiCommand />}
-                  dashbtnname={"Dashboard"}
-                ></Dashboardbtn>{" "}
-         </Link>
-
-              </div>
-              <div className="dashbardbtn">
-              <Link to="/patient">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Patient"}
-                ></Dashboardbtn>{" "}
+                <Link to="/">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiCommand />}
+                    dashbtnname={"Dashboard"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-              <Link to="/doctor">
-
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUser />}
-                  dashbtnname={"Doctor"}
-                ></Dashboardbtn>{" "}
+                <Link to="/appointment">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Patient"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Staff">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiUsers />}
-                  dashbtnname={"Staff"}
-                ></Dashboardbtn>{" "}
+                <Link to="/doctor">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUser />}
+                    dashbtnname={"Doctor"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
               <div className="dashbardbtn">
-
-              <Link to="/Appointments">
-                {" "}
-                <Dashboardbtn
-                  icon={<FiVoicemail />}
-                  dashbtnname={"Appointments"}
-                ></Dashboardbtn>{" "}
+                <Link to="/Staff">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiUsers />}
+                    dashbtnname={"Staff"}
+                  ></Dashboardbtn>{" "}
+                </Link>
+              </div>
+              <div className="dashbardbtn">
+                <Link to="/Appointments">
+                  {" "}
+                  <Dashboardbtn
+                    icon={<FiVoicemail />}
+                    dashbtnname={"Appointments"}
+                  ></Dashboardbtn>{" "}
                 </Link>
               </div>
             </div>
           </div>
 
-        {/* right side components */}
+          {/* right side components */}
 
-        <div className="col-9 right-sied">
-          <div className="row">
-            <div className="col">
-              {" "}
-              <div className="dashtitle">Appointments Details</div>{" "}
-            </div>
-            <div className="col">
-              <div className="addpatient">
-                {/* <Button variant="outlined" onClick={handleClickOpen}>
-                  Add now
-                </Button> */}
-                <Addbutton
-                  addbuttonicon={<FiPlusCircle />}
-                  addbuttonname={"Add Appointment"}
-                  variant="outlined"
-                  onClick={handleClickOpen}
-                ></Addbutton>
+          <div className="col-9 right-sied">
+            <div className="row">
+              <div className="col">
+                {" "}
+                <div className="dashtitle">Patient Details</div>{" "}
+              </div>
+              <div className="col">
+                <div className="addappointment">
+                  <Addbutton
+                    addbuttonicon={<FiPlusCircle />}
+                    addbuttonname={"Add Patient"}
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  ></Addbutton>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* <Button variant="outlined" >
-            Delete
-          </Button> */}
+            <hr className="dashhr" />
 
-          <hr className="dashhr" />
-
-            {/* Appointments Table */}
-            <AppointmentTable></AppointmentTable>
-            {/* Appointments Table */}
+            {/* Patient Table */}
+            <AppointmentTable list={appointmentsList} />
+            {/* Patient Table */}
           </div>
 
           {/* right side components */}
         </div>
       </div>
 
-
       {/* ModalBox */}
-    
-      
+
       <Dialog
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
-          {"Add Appointments"}
-        </DialogTitle>
+        <DialogTitle id="responsive-dialog-title">{"Add Patient"}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-      {/* add input feilds */}
-      <InputFeild fristname = "Appointments Name"></InputFeild>
-      <InputFeild fristname = "Appointments NIC"></InputFeild>
-      <InputFeild fristname = "Appointments Email"></InputFeild>
-      <InputFeild fristname = "Appointments Email"></InputFeild>
-      <InputFeild fristname = "Date Checkin"></InputFeild>
-      <InputFeild fristname = "Doctor Assigned"></InputFeild>
-      <InputFeild fristname = "Disease"></InputFeild>
-      <InputFeild fristname = "Status"></InputFeild>
-      <InputFeild fristname = "RoomNumber"></InputFeild>
-      <InputFeild fristname = "Contact"></InputFeild>
-      {/* add input feilds */}
+            {/* add input feilds */}
+            <InputFeild
+              fristname="Appointment date"
+              value={Date}
+              onChange={(e) => setDate(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="Appointment Type"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="disease"
+              value={disease}
+              onChange={(e) => setDisease(e.target.value)}
+            ></InputFeild>
+            <InputFeild
+              fristname="RoomNumber"
+              value={roomNo}
+              onChange={(e) => setRoomNo(e.target.value)}
+            ></InputFeild>
+           <InputFeild
+              fristname="Contact"
+              value={contact}
+              onChange={(e) => setContact(e.target.value)}
+            ></InputFeild> 
+            {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>
             Close
           </Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleSave} autoFocus>
             Save
           </Button>
         </DialogActions>
       </Dialog>
-   
+
       {/* ModalBox */}
     </div>
   );
 }
 
-export default Appointments;
+export default Patient;

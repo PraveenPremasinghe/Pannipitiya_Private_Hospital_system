@@ -1,5 +1,5 @@
 /** @format */
-import { Axios } from "./index";
+// import { Axios } from "./index";
 import axios from "axios";
 
 export const getAllPatients = () => {
