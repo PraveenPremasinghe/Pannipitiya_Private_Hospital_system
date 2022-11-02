@@ -168,7 +168,7 @@ export default function CollapsibleTable(props) {
 
   const [open, setOpen] = React.useState(false);
   const [patientid,setpatientid] = useState("");
-  const [name,setName] = useState("");
+  const [name,setName] = useState("praveen");
   const [Nic,setNic] = useState("");
   const [email,setEmail] = useState("");
   const [checkIn,setCheckIn] = useState("");
@@ -183,8 +183,22 @@ export default function CollapsibleTable(props) {
 
 const handleClickOpen = (row) => {
 
-  
+
+
+  setpatientid(row.id);
+  setName(row.name);
+  setNic(row.nic);
+  setEmail(row.email);
+  setCheckIn(row.check_in);
+  setCheckOut(row.check_out);
+  setStatus(row.status);
+  setRoomNo(row.room_no);
+  setContact(row.contact);
+
+
   setOpen(true);
+
+  console.log(row);
 };
 
 const handleClose = () => {
@@ -204,7 +218,7 @@ const handleClose = () => {
 
 
 
-  const updatepatient = (id) => {
+  const editPatient = () => {
     let patient = {
       name: name,
       nic:Nic,
@@ -219,7 +233,7 @@ const handleClose = () => {
       updated_at: updateDate
     };
 
-    updatePatient(id,patient)
+    updatePatient(patientid,patient)
     .then((response) => {
       alert("Data successfully inserted");
       window.location.reload(true);
@@ -264,7 +278,7 @@ const handleClose = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={editPatient} autoFocus>
             Update
           </Button>
         </DialogActions>
@@ -283,7 +297,8 @@ const handleClose = () => {
             <TableCell>Patient Name</TableCell>
             <TableCell>Patient Email</TableCell>
             <TableCell>Datecheck in</TableCell>
-            {/* <TableCell>Doctor Assigned</TableCell> */}
+            <TableCell>Datecheck out</TableCell>
+          
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
@@ -291,7 +306,7 @@ const handleClose = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {console.log("abf",props.list)}
+          {console.log("staff table",props.list)}
           {props.list.map((row, index) => {
             return (
               <TableRow>
@@ -301,7 +316,7 @@ const handleClose = () => {
             <TableCell>{row.name}</TableCell>
             <TableCell>{row.email}</TableCell>
             <TableCell>{row.check_in}</TableCell>
-            {/* <TableCell>{row.doctor_id.name}</TableCell> */}
+            <TableCell>{row.check_out}</TableCell>
             <TableCell>{row.status}</TableCell>
             <TableCell>{row.room_no}</TableCell>
             <TableCell>{row.contact}</TableCell>

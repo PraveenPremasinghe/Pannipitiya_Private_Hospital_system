@@ -264,7 +264,6 @@ const handleClose = () => {
             <TableCell>Staff member  Name</TableCell>
             <TableCell>Staff member  Email</TableCell>
             <TableCell>Staff member  Doctor ID</TableCell>
-      
             <TableCell>Contact</TableCell>
             <TableCell>Status</TableCell>
 

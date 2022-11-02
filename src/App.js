@@ -12,17 +12,19 @@ import Signin from "./Pages/Signin";
 
 
 
+
 function App() {
   return (
     <Router>
     <Routes>
-    <Route path="/login" element={<Login />} />
+    <Route path="/" element={<Login />} />
     <Route path="/Signin" element={<Signin />} />
     <Route path="/home" element={<Home />} />
       <Route path="/Patient" element={<Patient />} />
       <Route path="/Doctor" element={<Doctor />} />
       <Route path="/Staff" element={<Staff />} />
       <Route path="/Appointments" element={<Appointments />} />
+    
 
 
 

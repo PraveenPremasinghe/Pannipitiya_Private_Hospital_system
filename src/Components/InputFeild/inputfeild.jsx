@@ -11,7 +11,7 @@ function InputFeild(props) {
     <div className="inputfeildcover">
 
     <div className="input-title">{props.fristname}</div>
-  <input type="text" onChange={props.onChange} className="input-feild" id="fname" name="fname"/>
+  <input type="text" onChange={props.onChange} value={props.value}  className="input-feild" id="fname" name="fname"/>
     </div>
 
   
