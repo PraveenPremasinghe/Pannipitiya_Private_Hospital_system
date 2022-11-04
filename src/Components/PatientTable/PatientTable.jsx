@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -27,7 +27,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
-import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { IoIosCloseCircle,IoMdOpen,IoIosExit} from "react-icons/io";
 
 
 
@@ -284,7 +285,7 @@ const handleClose = () => {
     });
 };
 
-
+const tableRef = useRef(null);
 
   return (
 
@@ -334,10 +335,12 @@ const handleClose = () => {
       </Dialog>
     </div>
 
-
+    <div><DownloadTableExcel filename="Patient-table-data-sheet" sheet="users" currentTableRef={tableRef.current}>
+<button className="Exportsheet"> <IoIosExit size={20}/> {} Export Sheet </button>
+</DownloadTableExcel> </div>
 
     <TableContainer >
-      <Table options={{search:true}}  aria-label="collapsible table">
+      <Table options={{search:true}}  aria-label="collapsible table" ref={tableRef}>
         <TableHead>
           <TableRow>
             <TableCell />

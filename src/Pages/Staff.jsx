@@ -109,17 +109,7 @@ const [status, setStatus] = useState("");
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">
-              {" "}
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-              </InputGroup>
-            </div>
+        
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -131,8 +121,8 @@ const [status, setStatus] = useState("");
                 />
               </div>
               <div className="Card_message">
-                <div className="Profile_name">David Willy</div>
-                <div className="Message">Project Manager</div>
+                <div className="Profile_name">Vinuka Wathsara</div>
+                <div className="Message">Staff Manager</div>
               </div>
             </div>
           </div>

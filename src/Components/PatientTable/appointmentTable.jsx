@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -13,9 +13,13 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Addbutton from "../../Components/addbutton/addbutton";
+
 
 import { deleteAppointments,updateAppointments} from '../../services/Appointments';
 
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { IoIosCloseCircle,IoMdOpen,IoIosExit} from "react-icons/io";
 
 
 import Button from '@mui/material/Button';
@@ -28,7 +32,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import InputFeild from "../../Components/InputFeild/inputfeild";
 
-import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
+
+import SearchBar from "material-ui-search-bar";
 
 
 
@@ -65,6 +70,12 @@ function Row(props) {
   return (
 
 
+
+
+
+
+
+    
 
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -164,6 +175,25 @@ Row.propTypes = {
 
 export default function CollapsibleTable(props) {
 
+  const [rows, setRows] = useState(props.list);
+
+  const data = props.list;
+  
+  const [searched, setSearched] = useState("");
+
+  console.log(rows)
+
+  const requestSearch = (searchedVal) => {
+    const filteredRows = props.list.filter((row) => {
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+  setRows(filteredRows);
+};
+
+const cancelSearch = () => {
+  setSearched("");
+  requestSearch(searched);
+};
 
   const [open, setOpen] = React.useState(false);
   const[appointmentid,setappointmentid]=useState("");
@@ -230,12 +260,21 @@ const handleClose = () => {
     });
 };
 
-
+const tableRef = useRef(null);
 
   return (
 
     <>
-    
+
+<Paper>
+  <SearchBar
+    value={searched}
+    onChange={(searchVal) => requestSearch(searchVal)}
+    onCancelSearch={() => cancelSearch()}
+  />
+  </Paper>
+
+
 
     <div>
      
@@ -294,10 +333,13 @@ const handleClose = () => {
       </Dialog>
     </div>
 
+    
+    <div><DownloadTableExcel filename="Appointment-table-data-sheet" sheet="users" currentTableRef={tableRef.current}>
+<button className="Exportsheet"> <IoIosExit size={20}/> {} Export Sheet </button>
+</DownloadTableExcel> </div>
 
-
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+    <TableContainer component={Paper} >
+      <Table aria-label="collapsible table" ref={tableRef}>
         <TableHead>
           <TableRow>
             <TableCell />
@@ -316,7 +358,7 @@ const handleClose = () => {
 
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody  >
           {console.log("abf",props.list)}
           {props.list.map((row, index) => {
             return (

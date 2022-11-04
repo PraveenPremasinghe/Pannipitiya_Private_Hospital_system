@@ -16,6 +16,8 @@ import {
 import { IoMdAddCircle } from "react-icons/io";
 
 
+
+
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Addbutton from "../Components/addbutton/addbutton";
@@ -104,8 +106,21 @@ const[doctorId,setDoctorId]=useState();
     return <AppointmentTable appointment={appointmentsList} />;
   };
 
+
+  
+   
+
   return (
     <div>
+
+
+
+
+
+
+
+
+            
       <div className="dash-padding">
         <div className="row dashbordside">
           <div className="col-3 ">
@@ -115,17 +130,7 @@ const[doctorId,setDoctorId]=useState();
           </div>
           <div className="col-7">
             {" "}
-            <div className="searchbar">
-              {" "}
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-              </InputGroup>
-            </div>
+         
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -137,8 +142,8 @@ const[doctorId,setDoctorId]=useState();
                 />
               </div>
               <div className="Card_message">
-                <div className="Profile_name">David Willy</div>
-                <div className="Message">Project Manager</div>
+                <div className="Profile_name">Chara Neesadi</div>
+                <div className="Message">Appointment Manager</div>
               </div>
             </div>
           </div>
@@ -206,7 +211,7 @@ const[doctorId,setDoctorId]=useState();
               <div className="col">
                 <div className="addappointment">
                   <Addbutton
-                   addbuttonicon={<IoMdAddCircle size={20} />}
+                   addbuttonicon={<IoMdAddCircle size={20} />} 
                     addbuttonname={"Add Patient"}
                     variant="outlined"
                     onClick={handleClickOpen}

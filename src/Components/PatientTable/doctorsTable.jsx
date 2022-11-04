@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef} from "react";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -26,10 +26,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+import { IoIosCloseCircle,IoMdOpen,IoIosExit} from "react-icons/io";
 
 
-
+import SearchBar from "material-ui-search-bar";
 
 
 function createData(DoctorID,DoctorName,DoctorNIC,DoctorEmail,DoctorSpecialist,Doctorcontact,Doctorjoindate,Status  ) {
@@ -155,6 +156,28 @@ Row.propTypes = {
 
 export default function CollapsibleTable(props) {
 
+
+  
+  const [rows, setRows] = useState(props.list);
+
+  const data = props.list;
+  
+  const [searched, setSearched] = useState("");
+
+  console.log(rows)
+
+  const requestSearch = (searchedVal) => {
+    const filteredRows = props.list.filter((row) => {
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+  setRows(filteredRows);
+};
+
+const cancelSearch = () => {
+  setSearched("");
+  requestSearch(searched);
+};
+
   const [open, setOpen] = React.useState(false);
   const [doctorid, setdoctorid] = useState("");
   const [name, setName] = useState("");
@@ -220,13 +243,19 @@ export default function CollapsibleTable(props) {
       });
   };
 
-  
+  const tableRef = useRef(null);
 
   return (
 
     <>
     
-
+    <Paper>
+  <SearchBar
+    value={searched}
+    onChange={(searchVal) => requestSearch(searchVal)}
+    onCancelSearch={() => cancelSearch()}
+  />
+  </Paper>
     <div>
      
       <Dialog
@@ -260,8 +289,15 @@ export default function CollapsibleTable(props) {
       </Dialog>
     </div>
 
+
+
+    <div><DownloadTableExcel filename="Doctor-table-data-sheet" sheet="users" currentTableRef={tableRef.current}>
+<button className="Exportsheet"> <IoIosExit size={20}/> {} Export Sheet </button>
+</DownloadTableExcel> </div>
+
+
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+      <Table aria-label="collapsible table" ref={tableRef}>
         <TableHead>
           <TableRow>
             <TableCell />
@@ -290,8 +326,8 @@ export default function CollapsibleTable(props) {
             <TableCell>{row.email}</TableCell>
             <TableCell>{row.specialist}</TableCell>
             <TableCell>{row.date_joined}</TableCell>
-            <TableCell>{row.contact}</TableCell>
             <TableCell>{row.status}</TableCell>
+            <TableCell>{row.contact}</TableCell>
 
 
             {/* <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>

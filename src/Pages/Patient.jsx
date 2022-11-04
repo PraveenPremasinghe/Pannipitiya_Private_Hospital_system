@@ -5,7 +5,7 @@ import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
 import profileimg from "../Assets/Images/profile04.png";
 
-import JsPDF from 'jspdf';
+
 
 import {
   FiCommand,
@@ -115,18 +115,7 @@ function Patient() {
             </div>
           </div>
           <div className="col-7">
-            {" "}
-            <div className="searchbar">
-              {" "}
-              <InputGroup className="mb-3">
-                <Form.Control
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="basic-addon2"
-                />
-                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
-              </InputGroup>
-            </div>
+          
           </div>
           <div className="col-2 justify-content-center">
             <div className="Notification">
@@ -138,8 +127,8 @@ function Patient() {
                 />
               </div>
               <div className="Card_message">
-                <div className="Profile_name">David Willy</div>
-                <div className="Message">Project Manager</div>
+                <div className="Profile_name">Saranga Ranasinghe</div>
+                <div className="Message">Patient Manager</div>
               </div>
             </div>
           </div>
