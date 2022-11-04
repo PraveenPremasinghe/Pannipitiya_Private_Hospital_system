@@ -157,7 +157,7 @@ const[doctorId,setDoctorId]=useState();
                 </Link>
               </div>
               <div className="dashbardbtn">
-                <Link to="/appointment">
+                <Link to="/patient">
                   {" "}
                   <Dashboardbtn
                     icon={<FiUsers />}
