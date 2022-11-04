@@ -5,6 +5,8 @@ import Dashboardbtn from "../Components/Dashboardbtn/Dashboardbtns";
 import dashlogo from "../Assets/Images/dashlogo.png";
 import profileimg from "../Assets/Images/profile04.png";
 
+import JsPDF from 'jspdf';
+
 import {
   FiCommand,
   FiUsers,

@@ -80,12 +80,12 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.StaffmemberID }
         </TableCell>
-        {/* <TableCell align="center">{row.Staffmembername}</TableCell>
+        <TableCell align="center">{row.Staffmembername}</TableCell>
         <TableCell align="center">{row.StaffmemberNIC}</TableCell>
         <TableCell align="center">{row.Staffmemberemail}</TableCell>
         <TableCell align="center" >{row.doctoremail}</TableCell>
         <TableCell align="center">{row.Starffmembercontact}</TableCell>
-        <TableCell align="center">{row.Starffmemberstatus}</TableCell> */}
+        <TableCell align="center">{row.Starffmemberstatus}</TableCell>
    
 
         {/* <TableCell><EditIcon/></TableCell>
@@ -178,7 +178,7 @@ const handleClickOpen = (row) => {
   setName(row.name);
   setNic(row.nic);
   setEmail(row.email);
-  // setDoctorid(row.doctoremail);
+  // setDoctorid(row.doctorid);
   setStatus(row.status);
   setContact(row.contact);
 
@@ -207,8 +207,10 @@ const handleClose = () => {
       name: name,
       nic:Nic,
       email: email,
-      contact:contact,
+      // doctorid:doctorid,
       status: status,
+      contact:contact,
+      
    
     };
 
@@ -247,8 +249,8 @@ const handleClose = () => {
             <InputFeild fristname="Staff member NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
             <InputFeild fristname="Staff member Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
             {/* <InputFeild fristname="Doctor ID" value={doctorid} onChange={(e) => setDoctorid(e.target.value)}></InputFeild> */}
-            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
             <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
+            <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
             {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
@@ -272,9 +274,9 @@ const handleClose = () => {
             <TableCell>Member Name</TableCell>
             <TableCell>Member NIC</TableCell>
             <TableCell>Member Email</TableCell>
-            {/* <TableCell>Staff member Doctor ID</TableCell> */}
-            <TableCell>Contact</TableCell>
+            {/* <TableCell>Staff Doctor ID</TableCell> */}
             <TableCell>Status</TableCell>
+            <TableCell>Contact</TableCell>
             <TableCell>Action</TableCell>
 
 
@@ -292,8 +294,8 @@ const handleClose = () => {
             <TableCell>{row.nic}</TableCell>
             <TableCell>{row.email}</TableCell>
             {/* <TableCell>{row.doctorid}</TableCell> */}
-            <TableCell>{row.status}</TableCell>
             <TableCell>{row.contact}</TableCell>
+            <TableCell>{row.status}</TableCell>
 
 
             {/* <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>

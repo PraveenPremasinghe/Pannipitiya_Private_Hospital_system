@@ -17,6 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { deleteAppointments,updateAppointments} from '../../services/Appointments';
 
 
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -28,6 +29,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import InputFeild from "../../Components/InputFeild/inputfeild";
 
 import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
+
 
 
 
@@ -164,15 +166,24 @@ export default function CollapsibleTable(props) {
 
 
   const [open, setOpen] = React.useState(false);
-  const[appointmentId,setPatientId]=useState("");
-  const[doctorId,setDoctorId]=useState("");
-  const[Date,setDate]=useState("");
-  const[type,setType]=useState("");
-  const[disease,setDisease]=useState("");
-  const[roomNo,setRoomNo]=useState("");
+  const[appointmentid,setappointmentid]=useState("");
+const[date,setDate]=useState("");
+const[type,setType]=useState("");
+const[disease,setDisease]=useState("");
+const[patientid,setPatientid]=useState("");
+const[doctorId,setDoctorId]=useState("");
+const[created_at , setCreated_at]=useState("");
   
 
 const handleClickOpen = (row) => {
+
+  setappointmentid(row.id);
+  setDate(row.date);
+  setType(row.type);
+  setDisease(row.disease);
+  setPatientid(row.patient_id);
+  setDoctorId(row.doctor_id);
+  setCreated_at(row.created_at);
 
   
   setOpen(true);
@@ -183,8 +194,6 @@ const handleClose = () => {
 };
 
   const handleDelete = (appointment_id) => {
-    console.log("del");
-    console.log("del",appointment_id);
     deleteAppointments(appointment_id).then((response) => {
       console.log("res",response);
       alert("Data successfully Deleted");
@@ -195,18 +204,23 @@ const handleClose = () => {
 
 
 
-  const updateAppointments = (id) => {
+  const editAppoiment = () => {
     let appointment = {
-      appointment_id: appointmentId,
-      doctor_id: doctorId,
-      date: Date,
-      type: type,
-      disease: disease,
-      room_no: roomNo,
-      // contact: contact,
+    
+   
+      date:date,
+      type:type,
+      disease:disease,
+      patient_id:patientid,
+      doctor_id:doctorId,
+      created_at:created_at
+
+
+
+ 
     };
 
-    updateAppointments(id,appointment)
+    updateAppointments(appointmentid,appointment)
     .then((response) => {
       alert("Data successfully inserted");
       window.location.reload(true);
@@ -237,9 +251,9 @@ const handleClose = () => {
         <DialogContent>
           <DialogContentText>
              {/* add input feilds */}
-            <InputFeild
+             <InputFeild
               fristname="Appointment date"
-              value={Date}
+              value={date}
               onChange={(e) => setDate(e.target.value)}
             ></InputFeild>
             <InputFeild
@@ -247,27 +261,33 @@ const handleClose = () => {
               value={type}
               onChange={(e) => setType(e.target.value)}
             ></InputFeild>
+             <InputFeild
+              fristname="Patient Patientid"
+              value={patientid}
+              onChange={(e) => setPatientid(e.target.value)}
+            ></InputFeild>
+              <InputFeild
+              fristname="Doctor ID"
+              value={doctorId}
+              onChange={(e) => setDoctorId(e.target.value)}
+            ></InputFeild>
             <InputFeild
               fristname="disease"
               value={disease}
               onChange={(e) => setDisease(e.target.value)}
             ></InputFeild>
-            <InputFeild
-              fristname="RoomNumber"
-              value={roomNo}
-              onChange={(e) => setRoomNo(e.target.value)}
-            ></InputFeild>
-            {/* <InputFeild
+       
+           <InputFeild
               fristname="Contact"
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
-            ></InputFeild> */}
+              value={created_at}
+              onChange={(e) => setCreated_at(e.target.value)}
+            ></InputFeild> 
             {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={editAppoiment} autoFocus>
             Update
           </Button>
         </DialogActions>
@@ -282,13 +302,12 @@ const handleClose = () => {
           <TableRow>
             <TableCell />
             <TableCell>Appointment ID </TableCell>
-            <TableCell>DoctorID</TableCell>
-            <TableCell>Appointment Date</TableCell>
-            <TableCell>Appointment Type,</TableCell>
+            <TableCell>Appointment Date </TableCell>
+            <TableCell>Appointment Type</TableCell>
             <TableCell>Disease</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Room Number</TableCell>
-            <TableCell>Contact</TableCell>
+            <TableCell>Patient ID</TableCell>
+            <TableCell>DoctorID</TableCell>
+            <TableCell>Appoiment open Date</TableCell>
             <TableCell>Action</TableCell>
 
 
@@ -303,13 +322,18 @@ const handleClose = () => {
             return (
               <TableRow>
             <TableCell />
-            <TableCell>{row.appointment_id} </TableCell>
-            <TableCell>{row.doctor_id}</TableCell>
+            <TableCell>{row.id} </TableCell>
             <TableCell>{row.date}</TableCell>
             <TableCell>{row.type}</TableCell>
             <TableCell>{row.disease}</TableCell>
-            <TableCell>{row.room_no}</TableCell>
-            <TableCell>{row.contact}</TableCell>
+            <TableCell>{row.patient_id}</TableCell>
+            <TableCell>{row.doctor_id}</TableCell>
+            <TableCell>{row.created_at}</TableCell>
+        
+
+
+
+
 
 
 

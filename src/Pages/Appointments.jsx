@@ -33,32 +33,36 @@ import InputFeild from "../Components/InputFeild/inputfeild";
 
 import { getAllAppointments, createAppointment } from "../services/Appointments";
 
-function Patient() {
+function Appointment() {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [appointmentsList, setList] = useState([]);
 
-const[appointmentId,setPatientId]=useState("");
-const[doctorId,setDoctorId]=useState("");
-const[Date,setDate]=useState("");
+const[date,setDate]=useState("");
 const[type,setType]=useState("");
 const[disease,setDisease]=useState("");
-const[roomNo,setRoomNo]=useState("");
-const[contact,setContact]=useState("");
+const[patientid,setPatientid]=useState();
+const[doctorId,setDoctorId]=useState();
+
+// const[contact,setContact]=useState("");
+
+
+
+
 
 
   console.log();
 
   const handleSave = () => {
     let appointment = {
-      appointment_id: appointmentId,
-      doctor_id: doctorId,
-      date: Date,
-      type: type,
-      disease: disease,
-      room_no: roomNo,
-      contact: contact,
+      date:date,
+      type:type,
+      disease:disease,
+      patient_id:patientid,
+      doctor_id:doctorId,
+
+      // contact:contact
     };
 
     createAppointment(appointment)
@@ -194,7 +198,7 @@ const[contact,setContact]=useState("");
             <div className="row">
               <div className="col">
                 {" "}
-                <div className="dashtitle">Patient Details</div>{" "}
+                <div className="dashtitle">Appointments Details</div>{" "}
               </div>
               <div className="col">
                 <div className="addappointment">
@@ -233,7 +237,7 @@ const[contact,setContact]=useState("");
             {/* add input feilds */}
             <InputFeild
               fristname="Appointment date"
-              value={Date}
+              value={date}
               onChange={(e) => setDate(e.target.value)}
             ></InputFeild>
             <InputFeild
@@ -241,21 +245,28 @@ const[contact,setContact]=useState("");
               value={type}
               onChange={(e) => setType(e.target.value)}
             ></InputFeild>
-            <InputFeild
+              <InputFeild
               fristname="disease"
               value={disease}
               onChange={(e) => setDisease(e.target.value)}
             ></InputFeild>
-            <InputFeild
-              fristname="RoomNumber"
-              value={roomNo}
-              onChange={(e) => setRoomNo(e.target.value)}
+             <InputFeild
+              fristname="Patient ID"
+              value={patientid}
+              onChange={(e) => setPatientid(e.target.value)}
             ></InputFeild>
-           <InputFeild
+              <InputFeild
+              fristname="Doctor ID"
+              value={doctorId}
+              onChange={(e) => setDoctorId(e.target.value)}
+            ></InputFeild>
+          
+        
+           {/* <InputFeild
               fristname="Contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
-            ></InputFeild> 
+            ></InputFeild>  */}
             {/* add input feilds */}
           </DialogContentText>
         </DialogContent>
@@ -274,4 +285,4 @@ const[contact,setContact]=useState("");
   );
 }
 
-export default Patient;
+export default Appointment;

@@ -45,20 +45,19 @@ function Staff() {
 const [name, setName] = useState("");
 const [Nic, setNic] = useState("");
 const [email, setEmail] = useState("");
-const [doctorid , setDoctorid] = useState("");
-const [status, setStatus] = useState("");
+// const [doctorid , setDoctorid] = useState("");
 const [contact, setContact] = useState("");
+const [status, setStatus] = useState("");
 
 
   console.log();
 
   const handleSave = () => {
     let staff = {
-
       name: name,
       nic: Nic,
       email: email,
-      doctor_id: doctorid,
+      // doctor_id: doctorid,
       contact: contact,
       status: status,
     };
@@ -248,11 +247,11 @@ const [contact, setContact] = useState("");
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></InputFeild>
-               <InputFeild
+               {/* <InputFeild
               fristname="Doctor ID"
               value={doctorid}
-              onChange={(e) => setStatus(e.target.value)}
-            ></InputFeild>
+              onChange={(e) => setDoctorid(e.target.value)}
+            ></InputFeild> */}
             <InputFeild
               fristname="Status"
               value={status}

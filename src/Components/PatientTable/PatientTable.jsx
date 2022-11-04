@@ -16,6 +16,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { deletePatient,updatePatient} from '../../services/Patient';
 
 
+
+
+
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -30,6 +33,7 @@ import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
 
 import InputFeild from "../../Components/InputFeild/inputfeild";
 
+import SearchBar from "material-ui-search-bar";
 
 
 
@@ -170,6 +174,40 @@ Row.propTypes = {
 export default function CollapsibleTable(props) {
 
 
+  const originalRows= [
+    { name: "Pizza", calories: 200, fat: 6.0, carbs: 24, protein: 4.0 },
+    { name: "Hot Dog", calories: 300, fat: 6.0, carbs: 24, protein: 4.0 },
+    { name: "Burger", calories: 400, fat: 6.0, carbs: 24, protein: 4.0 },
+    { name: "Hamburger", calories: 500, fat: 6.0, carbs: 24, protein: 4.0 },
+    { name: "Fries", calories: 600, fat: 6.0, carbs: 24, protein: 4.0 },
+    { name: "Ice Cream", calories: 700, fat: 6.0, carbs: 24, protein: 4.0 }
+  ];
+
+
+
+  const [rows, setRows] = useState(props.list);
+
+  const data = props.list;
+  
+  const [searched, setSearched] = useState("");
+
+  console.log(rows)
+
+  const requestSearch = (searchedVal) => {
+    const filteredRows = props.list.filter((row) => {
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+  setRows(filteredRows);
+};
+
+const cancelSearch = () => {
+  setSearched("");
+  requestSearch(searched);
+};
+
+
+
+
   const [open, setOpen] = React.useState(false);
   const [patientid,setpatientid] = useState("");
   const [name,setName] = useState("");
@@ -202,7 +240,7 @@ const handleClickOpen = (row) => {
 
   setOpen(true);
 
-  console.log(row);
+
 };
 
 const handleClose = () => {
@@ -210,10 +248,9 @@ const handleClose = () => {
 };
 
   const handleDelete = (patient_id) => {
-    console.log("del");
-    console.log("del",patient_id);
+    
     deletePatient(patient_id).then((response) => {
-      console.log("res",response);
+      
       alert("Data successfully Deleted");
       window.location.reload(true);
     });
@@ -251,8 +288,16 @@ const handleClose = () => {
 
   return (
 
+ 
+
     <>
-    
+    <Paper>
+  <SearchBar
+    value={searched}
+    onChange={(searchVal) => requestSearch(searchVal)}
+    onCancelSearch={() => cancelSearch()}
+  />
+  </Paper>
 
     <div>
      
@@ -291,8 +336,8 @@ const handleClose = () => {
 
 
 
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
+    <TableContainer >
+      <Table options={{search:true}}  aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
@@ -311,8 +356,43 @@ const handleClose = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {console.log("staff table",props.list)}
-          {props.list.map((row, index) => {
+      
+ {rows?(<> {props.list.map((row, index) => {
+  
+  return (
+    <TableRow>
+  <TableCell />
+  <TableCell>{row.id} </TableCell>
+  <TableCell>{row.nic}</TableCell>
+  <TableCell>{row.name}</TableCell>
+  <TableCell>{row.email}</TableCell>
+  <TableCell>{row.check_in}</TableCell>
+  <TableCell>{row.check_out}</TableCell>
+  <TableCell >{row.status} </TableCell>
+  <TableCell>{row.room_no}</TableCell>
+  <TableCell>{row.contact}</TableCell>
+
+
+  {/* <TableCell> <button className="editbtn" editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+  <TableCell> <button className="deletebtn" deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+  */}
+
+  {/* <TableCell><div className="row">
+    <div className="col-6 editpadding"><IoMdOpen /><button className="editbtn" editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button></div>
+    <div className="col-6"> <IoIosCloseCircle/><button className="deletebtn" deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button></div>
+  </div></TableCell> */}
+
+
+
+  <TableCell><div className="row ">
+    <div className="col-6 actionp"><IoMdOpen className="editbtn" size={27} editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} /></div>
+    <div className="col-6 actionp"> <IoIosCloseCircle className="deletebtn" size={28}  deletebuttonname="Delete" onClick={() => handleDelete(row.id)} /></div>
+  </div></TableCell>
+
+</TableRow>
+  )
+})}</>):(<>{props.list.map((row, index) => {
+  
             return (
               <TableRow>
             <TableCell />
@@ -345,7 +425,7 @@ const handleClose = () => {
 
           </TableRow>
             )
-          })}
+          })}</>)}
         </TableBody>
       </Table>
 
