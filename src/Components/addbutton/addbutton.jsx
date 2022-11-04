@@ -7,7 +7,7 @@ function Addbutton(props) {
   return (
 <div>
  
-<button onClick={props.onClick} className="addbutton">{props.addbuttonicon} &nbsp; {props.addbuttonname}</button>
+<button onClick={props.onClick} className="addbutton">{props.addbuttonicon} &nbsp;{props.addbuttonname}</button>
  
 
   

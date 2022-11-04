@@ -13,6 +13,9 @@ import {
   FiPlusCircle,
 } from "react-icons/fi";
 
+import { IoMdAddCircle } from "react-icons/io";
+
+
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Addbutton from "../Components/addbutton/addbutton";
@@ -29,6 +32,7 @@ import { useTheme } from "@mui/material/styles";
 import InputFeild from "../Components/InputFeild/inputfeild";
 
 import { getAllStaff, createStaff } from "../services/Staff";
+
 
 function Staff() {
   const [open, setOpen] = React.useState(false);
@@ -148,11 +152,11 @@ const [contact, setContact] = useState("");
                 </Link>
               </div>
               <div className="dashbardbtn">
-                <Link to="/staff">
+                <Link to="/patient">
                   {" "}
                   <Dashboardbtn
                     icon={<FiUsers />}
-                    dashbtnname={"Staff"}
+                    dashbtnname={"Patient"}
                   ></Dashboardbtn>{" "}
                 </Link>
               </div>
@@ -197,7 +201,7 @@ const [contact, setContact] = useState("");
               <div className="col">
                 <div className="addstaff">
                   <Addbutton
-                    addbuttonicon={<FiPlusCircle />}
+                    addbuttonicon={<IoMdAddCircle size={20} />}
                     addbuttonname={"Add Staff"}
                     variant="outlined"
                     onClick={handleClickOpen}

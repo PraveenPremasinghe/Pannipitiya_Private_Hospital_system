@@ -120,4 +120,50 @@ border-radius: 10px;
 
   }
   
+
+ .actionp{
+padding-left: 10px;
+padding-right: 10px;
  
+ }
+
+
+
+
+ .editbtn{
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 20px;
+  color: #0071FF;
+  
+
+ }
+
+ .deletebtn{
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 20px;
+  color: #FF0000;
+
+ }
+
+
+ .editbtn:hover{
+  background:#0071FF;
+  padding: 5px;
+  border-radius: 20px;
+  color: white;
+ }
+
+
+ .deletebtn:hover{
+  background:#FF0000;
+  padding: 5px;
+  border-radius: 20px;
+  color: white;
+ }
+
+ .statuscolor{
+  background: rgba(34, 196, 94, 0.11);
+border: 1px solid #22C45E;
+ }

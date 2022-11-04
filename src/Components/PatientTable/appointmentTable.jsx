@@ -27,6 +27,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import InputFeild from "../../Components/InputFeild/inputfeild";
 
+import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
 
 
 
@@ -288,6 +289,8 @@ const handleClose = () => {
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
+            <TableCell>Action</TableCell>
+
 
 
 
@@ -311,10 +314,13 @@ const handleClose = () => {
 
 
 
-            <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
-            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+            {/* <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell> */}
            
-            
+           <TableCell><div className="row ">
+              <div className="col-6 actionp"><IoMdOpen className="editbtn" size={27} editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} /></div>
+              <div className="col-6 actionp"> <IoIosCloseCircle className="deletebtn" size={28}  deletebuttonname="Delete" onClick={() => handleDelete(row.id)} /></div>
+            </div></TableCell>
 
           </TableRow>
             )

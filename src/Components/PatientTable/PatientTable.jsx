@@ -24,6 +24,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 
+import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
+
+
+
 import InputFeild from "../../Components/InputFeild/inputfeild";
 
 
@@ -168,7 +172,7 @@ export default function CollapsibleTable(props) {
 
   const [open, setOpen] = React.useState(false);
   const [patientid,setpatientid] = useState("");
-  const [name,setName] = useState("praveen");
+  const [name,setName] = useState("");
   const [Nic,setNic] = useState("");
   const [email,setEmail] = useState("");
   const [checkIn,setCheckIn] = useState("");
@@ -302,6 +306,7 @@ const handleClose = () => {
             <TableCell>Status</TableCell>
             <TableCell>Room Number</TableCell>
             <TableCell>Contact</TableCell>
+            <TableCell>Action</TableCell>
 
           </TableRow>
         </TableHead>
@@ -317,15 +322,26 @@ const handleClose = () => {
             <TableCell>{row.email}</TableCell>
             <TableCell>{row.check_in}</TableCell>
             <TableCell>{row.check_out}</TableCell>
-            <TableCell>{row.status}</TableCell>
+            <TableCell >{row.status} </TableCell>
             <TableCell>{row.room_no}</TableCell>
             <TableCell>{row.contact}</TableCell>
 
 
-            <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
-            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
-           
-            
+            {/* <TableCell> <button className="editbtn" editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+            <TableCell> <button className="deletebtn" deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+            */}
+
+            {/* <TableCell><div className="row">
+              <div className="col-6 editpadding"><IoMdOpen /><button className="editbtn" editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button></div>
+              <div className="col-6"> <IoIosCloseCircle/><button className="deletebtn" deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button></div>
+            </div></TableCell> */}
+
+
+
+            <TableCell><div className="row ">
+              <div className="col-6 actionp"><IoMdOpen className="editbtn" size={27} editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} /></div>
+              <div className="col-6 actionp"> <IoIosCloseCircle className="deletebtn" size={28}  deletebuttonname="Delete" onClick={() => handleDelete(row.id)} /></div>
+            </div></TableCell>
 
           </TableRow>
             )

@@ -26,6 +26,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
+
+
 
 
 
@@ -80,8 +83,8 @@ function Row(props) {
         <TableCell align="center">{row.Doctorjoindate}</TableCell>
         <TableCell align="center">{row.Contact}</TableCell>
         <TableCell align="center">{row.Status}</TableCell>
-        <TableCell><EditIcon/></TableCell>
-        <TableCell><DeleteIcon/></TableCell>
+        {/* <TableCell><EditIcon/></TableCell>
+        <TableCell><DeleteIcon/></TableCell> */}
         
       </TableRow>
 
@@ -153,6 +156,7 @@ Row.propTypes = {
 export default function CollapsibleTable(props) {
 
   const [open, setOpen] = React.useState(false);
+  const [doctorid, setdoctorid] = useState("");
   const [name, setName] = useState("");
   const [Nic, setNic] = useState("");
   const [email, setEmail] = useState("");
@@ -165,7 +169,15 @@ export default function CollapsibleTable(props) {
 
   const handleClickOpen = (row) => {
 
-  
+    setdoctorid(row.id);
+    setName(row.name);
+    setNic(row.nic);
+    setEmail(row.email);
+    setSpecialist(row.specialist);
+    setContact(row.date_joined);
+    setDate_joined(row.contact);
+    setStatus(row.status);
+
     setOpen(true);
   };
   
@@ -186,7 +198,7 @@ export default function CollapsibleTable(props) {
   
   
   
-    const updateDoctor = (id) => {
+    const editDoctor = () => {
       let doctor = {
         name: name,
         nic: Nic,
@@ -198,7 +210,7 @@ export default function CollapsibleTable(props) {
      
       };
   
-      updateDoctor(id,doctor)
+      updateDoctor(doctorid,doctor)
       .then((response) => {
         alert("Data successfully inserted");
         window.location.reload(true);
@@ -241,7 +253,7 @@ export default function CollapsibleTable(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={editDoctor} autoFocus>
             Update
           </Button>
         </DialogActions>
@@ -261,6 +273,8 @@ export default function CollapsibleTable(props) {
             <TableCell>Doctor Date Joined</TableCell>
             <TableCell>Status</TableCell>
             <TableCell>Contact</TableCell>
+            <TableCell>Action</TableCell>
+
            
           </TableRow>
         </TableHead>
@@ -280,10 +294,13 @@ export default function CollapsibleTable(props) {
             <TableCell>{row.status}</TableCell>
 
 
-            <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
-            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+            {/* <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell> */}
            
-            
+            <TableCell><div className="row ">
+              <div className="col-6 actionp"><IoMdOpen className="editbtn" size={27} editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} /></div>
+              <div className="col-6 actionp"> <IoIosCloseCircle className="deletebtn" size={28}  deletebuttonname="Delete" onClick={() => handleDelete(row.id)} /></div>
+            </div></TableCell>
 
           </TableRow>
             )

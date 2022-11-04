@@ -13,6 +13,9 @@ import {
   FiPlusCircle,
 } from "react-icons/fi";
 
+import { IoMdAddCircle } from "react-icons/io";
+
+
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Addbutton from "../Components/addbutton/addbutton";
@@ -196,7 +199,7 @@ const[contact,setContact]=useState("");
               <div className="col">
                 <div className="addappointment">
                   <Addbutton
-                    addbuttonicon={<FiPlusCircle />}
+                   addbuttonicon={<IoMdAddCircle size={20} />}
                     addbuttonname={"Add Patient"}
                     variant="outlined"
                     onClick={handleClickOpen}

@@ -26,6 +26,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import InputFeild from "../../Components/InputFeild/inputfeild";
 
+import { IoIosCloseCircle,IoMdOpen} from "react-icons/io";
 
 
 
@@ -79,12 +80,12 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.StaffmemberID }
         </TableCell>
-        <TableCell align="center">{row.Staffmembername}</TableCell>
+        {/* <TableCell align="center">{row.Staffmembername}</TableCell>
         <TableCell align="center">{row.StaffmemberNIC}</TableCell>
         <TableCell align="center">{row.Staffmemberemail}</TableCell>
         <TableCell align="center" >{row.doctoremail}</TableCell>
         <TableCell align="center">{row.Starffmembercontact}</TableCell>
-        <TableCell align="center">{row.Starffmemberstatus}</TableCell>
+        <TableCell align="center">{row.Starffmemberstatus}</TableCell> */}
    
 
         {/* <TableCell><EditIcon/></TableCell>
@@ -162,15 +163,24 @@ export default function CollapsibleTable(props) {
 
 
   const [open, setOpen] = React.useState(false);
+  const [staffid, setstaffid] = useState("");
   const [name, setName] = useState("");
   const [Nic, setNic] = useState("");
   const [email, setEmail] = useState("");
-  const [doctorid , setDoctorid] = useState("");
+  // const [doctorid , setDoctorid] = useState("");
   const [status, setStatus] = useState("");
   const [contact, setContact] = useState("");
   
 
 const handleClickOpen = (row) => {
+
+  setstaffid(row.id);
+  setName(row.name);
+  setNic(row.nic);
+  setEmail(row.email);
+  // setDoctorid(row.doctoremail);
+  setStatus(row.status);
+  setContact(row.contact);
 
   
   setOpen(true);
@@ -192,18 +202,18 @@ const handleClose = () => {
 
 
 
-
-  const updateStaff = (id) => {
+  const editStaff = () => {
     let staff = {
       name: name,
-      nic: Nic,
+      nic:Nic,
       email: email,
-      doctor_id: doctorid,
-      contact: contact,
+      contact:contact,
       status: status,
+   
     };
 
-    updateStaff(id,staff)
+
+    updateStaff(staffid,staff)
     .then((response) => {
       alert("Data successfully inserted");
       window.location.reload(true);
@@ -212,7 +222,6 @@ const handleClose = () => {
       alert(error.message);
     });
 };
-
 
 
   return (
@@ -237,7 +246,7 @@ const handleClose = () => {
             <InputFeild fristname="Staff member Name"  value={name} onChange={(e) => setName(e.target.value)}></InputFeild>
             <InputFeild fristname="Staff member NIC" value={Nic} onChange={(e) => setNic(e.target.value)}></InputFeild>
             <InputFeild fristname="Staff member Email" value={email} onChange={(e) => setEmail(e.target.value)}></InputFeild>
-            <InputFeild fristname="Doctor ID" value={doctorid} onChange={(e) => setDoctorid(e.target.value)}></InputFeild>
+            {/* <InputFeild fristname="Doctor ID" value={doctorid} onChange={(e) => setDoctorid(e.target.value)}></InputFeild> */}
             <InputFeild fristname="Status" value={status} onChange={(e) => setStatus(e.target.value)}></InputFeild>
             <InputFeild fristname="Contact" value={contact} onChange={(e) => setContact(e.target.value)}></InputFeild>
             {/* add input feilds */}
@@ -245,7 +254,7 @@ const handleClose = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={editStaff} autoFocus>
             Update
           </Button>
         </DialogActions>
@@ -259,13 +268,15 @@ const handleClose = () => {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Staff member  ID </TableCell>
-            <TableCell>Staff member  NIC</TableCell>
-            <TableCell>Staff member  Name</TableCell>
-            <TableCell>Staff member  Email</TableCell>
-            <TableCell>Staff member  Doctor ID</TableCell>
+            <TableCell>Member ID </TableCell>
+            <TableCell>Member Name</TableCell>
+            <TableCell>Member NIC</TableCell>
+            <TableCell>Member Email</TableCell>
+            {/* <TableCell>Staff member Doctor ID</TableCell> */}
             <TableCell>Contact</TableCell>
             <TableCell>Status</TableCell>
+            <TableCell>Action</TableCell>
+
 
 
           </TableRow>
@@ -277,16 +288,21 @@ const handleClose = () => {
               <TableRow>
             <TableCell />
             <TableCell>{row.id} </TableCell>
-            <TableCell>{row.nic}</TableCell>
             <TableCell>{row.name}</TableCell>
+            <TableCell>{row.nic}</TableCell>
             <TableCell>{row.email}</TableCell>
-            <TableCell>{row.doctorid}</TableCell>
+            {/* <TableCell>{row.doctorid}</TableCell> */}
             <TableCell>{row.status}</TableCell>
             <TableCell>{row.contact}</TableCell>
 
 
-            <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
-            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell>
+            {/* <TableCell> <button editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} >Edit</button> </TableCell>
+            <TableCell> <button deletebuttonname="Delete" onClick={() => handleDelete(row.id)} >Detele</button> </TableCell> */}
+
+            <TableCell><div className="row ">
+              <div className="col-6 actionp"><IoMdOpen className="editbtn" size={27} editbuttonname="Edit" variant="outlined" onClick={() => handleClickOpen(row)} /></div>
+              <div className="col-6 actionp"> <IoIosCloseCircle className="deletebtn" size={28}  deletebuttonname="Delete" onClick={() => handleDelete(row.id)} /></div>
+            </div></TableCell>
            
             
 
