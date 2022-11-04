@@ -193,8 +193,8 @@ const handleClose = () => {
   setOpen(false);
 };
 
-  const handleDelete = (appointment_id) => {
-    deleteAppointments(appointment_id).then((response) => {
+  const handleDelete = (AppointmentId) => {
+    deleteAppointments(AppointmentId).then((response) => {
       console.log("res",response);
       alert("Data successfully Deleted");
       window.location.reload(true);
@@ -211,8 +211,8 @@ const handleClose = () => {
       date:date,
       type:type,
       disease:disease,
-      patient_id:patientid,
-      doctor_id:doctorId,
+      patient_id: parseInt(patientid),
+      doctor_id: parseInt(doctorId),
       created_at:created_at
 
 

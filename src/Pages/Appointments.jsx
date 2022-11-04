@@ -59,8 +59,11 @@ const[doctorId,setDoctorId]=useState();
       date:date,
       type:type,
       disease:disease,
-      patient_id:patientid,
-      doctor_id:doctorId,
+      patient_id: parseInt(patientid),
+      doctor_id: parseInt(doctorId),
+
+
+
 
       // contact:contact
     };
